@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,6 +25,15 @@ import android.widget.TextView;
 import com.tianjian.slidingmenuteachingclient.R;
 import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
 import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.fragment.HomePageMentorFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.HomePageStudentFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.QuestionsMentorFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.QuestionsStudentFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.ResourcesFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.TasksMentorFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.TasksStudentFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.UserInfoMentorFragment;
+import com.tianjian.slidingmenuteachingclient.fragment.UserInfoStudentFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +42,20 @@ public class MainActivity extends AppCompatActivity
     private View headerLayout;
     private TextView userName,userPhone;
     private ImageView imageView;
+    private FrameLayout frameLayout;
+    private FragmentManager fragmentManager;
+    private HomePageStudentFragment homepageFragment_stu;
+    private HomePageMentorFragment homepageFragment_men;
+    private ResourcesFragment resourcesFragment;
+    private QuestionsStudentFragment questionsFragment_stu;
+    private QuestionsMentorFragment questionsFragment_men;
+    private TasksStudentFragment tasksFragment_stu;
+    private TasksMentorFragment tasksFragment_men;
+    private UserInfoStudentFragment userInfoFragment_stu;
+    private UserInfoMentorFragment userInfoFragment_men;
+
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +86,8 @@ public class MainActivity extends AppCompatActivity
 
         systemApplcation = (SystemApplcation) MainActivity.this.getApplication();
         userDict = systemApplcation.getUserDict();
+
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
 
         initData();
     }
@@ -116,7 +145,13 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            if(null!=systemApplcation.getResourcesFragment()){
+                showFragment(systemApplcation.getResourcesFragment());
+            }else{
+                resourcesFragment = new ResourcesFragment();
+                systemApplcation.setResourcesFragment(resourcesFragment);
+                showFragment(resourcesFragment);
+            }
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -130,5 +165,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showFragment(Fragment f) {
+        if (fragmentManager == null) {
+            fragmentManager = getSupportFragmentManager();
+        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, f);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

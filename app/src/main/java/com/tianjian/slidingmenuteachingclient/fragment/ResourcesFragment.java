@@ -7,6 +7,13 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.tianjian.slidingmenuteachingclient.R;
+
 /**
  * 课件
  * <p>Title: ResourcesFragment.java</p>
@@ -20,7 +27,7 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  */
 
 public class ResourcesFragment extends BaseFragment{
-//	private View rootView;
+	private View rootView;
 //	private EditText search_et_input;
 //	private ImageView search_iv_delete;
 //	private PullToRefreshGridView listview;
@@ -43,16 +50,16 @@ public class ResourcesFragment extends BaseFragment{
 //	private static final int UPDATE_DOWNLOAD_CANCELED = 5;//取消下载
 //	private boolean flag = false;//搜索栏初始字符串是否为空
 //
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//		if(rootView == null){
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+		if(rootView == null){
 //			flag = true;
-//			rootView = inflater.inflate(R.layout.resources_layout, null);
+			rootView = inflater.inflate(R.layout.resources_layout, null);
 //			initView();
-//		}
-//		return rootView;
-//	}
+		}
+		return rootView;
+	}
 //	private void initView() {
 //		//搜索框删除按钮
 //		search_iv_delete = (ImageView) rootView.findViewById(R.id.resources_search_iv_delete);
