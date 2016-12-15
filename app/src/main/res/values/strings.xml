@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">分级诊疗SlidingMenu</string>
+    <string name="app_name">分级诊疗</string>
 
     <!-- Strings related to login -->
     <string name="prompt_phone">Phone</string>
