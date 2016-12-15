@@ -19,7 +19,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
-
+    <!--app:headerLayout="@layout/nav_header_main" 代码里其实是获得该布局的同时把其加入到抽屉布局中去，所以这里删掉-->
 </android.support.v4.widget.DrawerLayout>

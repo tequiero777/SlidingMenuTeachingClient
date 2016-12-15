@@ -1,5 +1,6 @@
 package com.tianjian.slidingmenuteachingclient.activity;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,11 +13,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private InLoginSrvOutputItem userDict;
+    private SystemApplcation systemApplcation;
+    private View headerLayout;
+    private TextView userName,userPhone;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,25 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        headerLayout = (View) navigationView.inflateHeaderView(R.layout.nav_header_main);
+
+        systemApplcation = (SystemApplcation) MainActivity.this.getApplication();
+        userDict = systemApplcation.getUserDict();
+
+        initData();
+    }
+
+    private void initData() {
+        userName = (TextView) headerLayout.findViewById(R.id.userName);
+        userPhone = (TextView) headerLayout.findViewById(R.id.userPhone);
+        imageView = (ImageView) headerLayout.findViewById(R.id.imageView);
+
+        userName.setText(userDict.getNAME());
+        userPhone.setText("Phone:"+userDict.getUSERNAME());
+        if(userDict.getIMAGE()!=null){
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(userDict.getIMAGE(), 0, userDict.getIMAGE().length));
+        }
     }
 
     @Override

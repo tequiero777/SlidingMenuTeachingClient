@@ -12,28 +12,6 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-/**
- * TODO
- * <p>
- * Title: MyWebViewClient.java
- * </p>
- * <p>
- * Copyright: Copyright (c) 2013
- * </p>
- * <p>
- * Company: Tianjian
- * </p>
- * <p>
- * team: TianjianTeam
- * </p>
- * <p>
- * 
- * @author: cheng
- *          </p>
- * @date 2014年11月6日下午4:48:56
- * @version 1.0
- * 
- */
 public class MyWebViewClient extends WebViewClient {
 	
 	public MyWebViewClient() {

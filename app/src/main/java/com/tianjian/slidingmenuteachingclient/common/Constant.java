@@ -10,8 +10,8 @@ public class Constant {
 	/*********************************** http配置信息*****************************************/
 	/** 地址端口*/
 //	public static String IP_ADDRESS = PropertiesUtil.getProperty("IP_ADDRESS");
-//	public static String IP_ADDRESS = "http://60.22.147.147:9080";
-	public static String IP_ADDRESS = "http://192.168.191.1:8080";
+	public static String IP_ADDRESS = "http://60.22.147.147:9080";
+//	public static String IP_ADDRESS = "http://192.168.191.1:8080";
 	/*** ws地址 ***/
 	public static final String SERVER_URL = IP_ADDRESS+"/TeachingServer";
 	

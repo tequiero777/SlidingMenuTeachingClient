@@ -32,50 +32,18 @@ public class ErrorOutputItem implements KvmSerializable {
     protected String errorFlag;
     protected String errorMessage;
 
-    /**
-     * ��ȡerrorFlag���Ե�ֵ��
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
     public String getErrorFlag() {
         return errorFlag;
     }
 
-    /**
-     * ����errorFlag���Ե�ֵ��
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
     public void setErrorFlag(String value) {
         this.errorFlag = value;
     }
 
-    /**
-     * ��ȡerrorMessage���Ե�ֵ��
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
-    /**
-     * ����errorMessage���Ե�ֵ��
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
     public void setErrorMessage(String value) {
         this.errorMessage = value;
     }

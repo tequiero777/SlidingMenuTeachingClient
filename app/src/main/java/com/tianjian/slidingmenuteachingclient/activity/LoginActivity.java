@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -31,8 +32,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvResponse;
+import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
+import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
+import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+
+import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -60,17 +70,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mPhoneView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+
+        mPhoneView = (AutoCompleteTextView) findViewById(R.id.phone);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -85,20 +96,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mPhoneSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mPhoneSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                Intent intent = new Intent();
-                intent.setClass(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        preferences = LoginActivity.this.getSharedPreferences("TEACHING", LoginActivity.this.MODE_PRIVATE);
+        mPhoneView.setText(preferences!=null?preferences.getString("userName", null):"");
+        mPasswordView.setText(preferences!=null?preferences.getString("userPwd", null):"");
     }
 
     private void populateAutoComplete() {
@@ -123,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mPhoneView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -156,11 +166,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         // Reset errors.
-        mEmailView.setError(null);
+        mPhoneView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String phone = mPhoneView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -174,37 +184,130 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+        if (TextUtils.isEmpty(phone)) {
+            mPhoneView.setError(getString(R.string.error_field_required));
+            focusView = mPhoneView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+        } else if (!isEmailValid(phone)) {
+            mPhoneView.setError(getString(R.string.error_invalid_phone));
+            focusView = mPhoneView;
             cancel = true;
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+
+            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+            hashMap.put("USERNAME", phone);
+            hashMap.put("PASSWORD", password);
+            hashMap.put("OPERATE_TYPE", "1");
+            Intent intent = new Intent();
+            intent.setClass(LoginActivity.this, MainActivity.class);
+            queryLogin(hashMap,intent);
+
+            preferences = LoginActivity.this.getSharedPreferences("TEACHING", LoginActivity.this.MODE_PRIVATE);
+            if(preferences!=null){
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("userName", phone);
+                editor.putString("userPwd", password);
+                editor.commit();
+            }
+
+//            mAuthTask = new UserLoginTask(phone, password);
+//            mAuthTask.execute((Void) null);
         }
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+    private void queryLogin(HashMap<String, Object>  request,final Intent  intent) {
+        NetWorkHepler.postWsData("loginWs", "process", request, new INetWorkCallBack() {
+            SoapObject objectResult;
+            @Override
+            public void onResult(Object result) {
+                mAuthTask = null;
+                showProgress(false);
+
+                if(result == null){
+                    ToastUtil.showToast(getApplication(), "登陆出错了！");
+                }else if(result instanceof SoapObject) {
+                    objectResult = (SoapObject) result;
+                }else{
+                    ToastUtil.showToast(getApplication(), "服务器连接失败");
+                    return;
+                }
+                InLoginSrvResponse response = new InLoginSrvResponse();
+                try {
+                    for(int i=0;i<objectResult.getPropertyCount();i++){
+                        response.setProperty(i, objectResult.getProperty(i));
+                    }
+                } catch (Exception e) {
+                    ToastUtil.showToast(getApplication(), "数据出错了，请重试！");
+                }
+
+                if(response.getInLoginSrvOutputCollection()==null
+                        ||response.getInLoginSrvOutputCollection().getInLoginSrvOutputItem()==null
+                        ||response.getInLoginSrvOutputCollection().getInLoginSrvOutputItem().get(0)==null){
+                    ToastUtil.showToast(getApplication(), "用户名或者密码错误！");
+                    return;
+                }
+                if("Y".equals(response.getErrorFlag())){
+//                    //启动mq服务
+//                    Intent service = new Intent(LoginActivity.this, MqttServer.class);
+//                    service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startService(service);
+
+                    boolean isRuning = getIntent().getExtras()!=null&& getIntent().getExtras().getSerializable("data")!=null;
+                    if(!isRuning){
+//						ToastUtil.showToast(getApplication(),"密码验证成功！");
+                    }
+                    SystemApplcation systemApplcation = (SystemApplcation) getApplication();
+                    systemApplcation.setUserDict(response.getInLoginSrvOutputCollection().getInLoginSrvOutputItem().get(0));
+                    InLoginSrvOutputItem userInfo = response.getInLoginSrvOutputCollection().getInLoginSrvOutputItem().get(0);
+
+                    if(isRuning){
+                        intent.putExtras(getIntent().getExtras());
+                    }
+                    if(userInfo.getTYPE().equals("1")){
+                        ToastUtil.showToast(getApplication(),"登录成功！");
+                        intent.putExtra("loginflag", 1);
+                        startActivity(intent);
+                        finish();
+                    }else if(userInfo.getTYPE().equals("2")){
+                        ToastUtil.showToast(getApplication(),"登录成功！");
+                        intent.putExtra("loginflag", 2);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else{
+                    ToastUtil.showToast(getApplication(), "登陆遇到问题，请重试!");
+                }
+
+            }
+
+            @Override
+            public void onProgressUpdate(Integer[] values) {
+
+            }
+
+            @Override
+            public void onPreExecute() {
+
+            }
+        });
+    }
+
+    private boolean isEmailValid(String phone) {
+        try {
+            Integer.parseInt(phone);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 0;
     }
 
     /**
@@ -212,9 +315,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -236,8 +336,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -246,17 +344,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-                // Select only email addresses.
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
@@ -283,7 +377,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        mPhoneView.setAdapter(adapter);
     }
 
     private interface ProfileQuery {
@@ -306,14 +400,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected List<String> doInBackground(Void... voids) {
             ArrayList<String> emailAddressCollection = new ArrayList<>();
 
-            // Get all emails from the user's contacts and copy them to a list.
             ContentResolver cr = getContentResolver();
-            Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
+            Cursor emailCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                     null, null, null);
             while (emailCur.moveToNext()) {
-                String email = emailCur.getString(emailCur.getColumnIndex(ContactsContract
-                        .CommonDataKinds.Email.DATA));
-                emailAddressCollection.add(email);
+                String phone = emailCur.getString(emailCur.getColumnIndex(ContactsContract
+                        .CommonDataKinds.Phone.DATA));
+                emailAddressCollection.add(phone);
             }
             emailCur.close();
 
@@ -332,11 +425,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mPhone;
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
-            mEmail = email;
+            mPhone = email;
             mPassword = password;
         }
 
@@ -353,7 +446,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+                if (pieces[0].equals(mPhone)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }

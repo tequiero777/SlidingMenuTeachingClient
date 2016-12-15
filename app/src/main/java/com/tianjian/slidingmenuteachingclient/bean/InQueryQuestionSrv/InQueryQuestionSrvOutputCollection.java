@@ -4,26 +4,6 @@ package com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * <p>InQueryQuestionSrvOutputCollection complex type�� Java �ࡣ
- * 
- * <p>����ģʽƬ��ָ�����ڴ����е�Ԥ�����ݡ�
- * 
- * <pre>
- * &lt;complexType name="InQueryQuestionSrvOutputCollection">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="InQueryQuestionSrvOutputItem" type="{http://tj.teach.com/InQueryQuestionSrv}InQueryQuestionSrvOutputItem" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 public class InQueryQuestionSrvOutputCollection {
 
     protected List<InQueryQuestionSrvOutputItem> inQueryQuestionSrvOutputItem;
