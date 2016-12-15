@@ -16,4 +16,98 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- 手机端的 基础框架的 style -->
+    <style name="basc_text_size">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="basc_menu_text_size">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <!-- 消息接收的 popwindow 弹出窗体动画效果   -->
+    <style name="AnimBottomOutShow" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="basicTabRidoMenu" parent="basc_text_size">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/bottombar_textcolor_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@drawable/bottombar_itembg_selector</item>
+    </style>
+
+    <!-- 自定义progressDialog -->
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="CustomProgressDialog" parent="@style/CustomDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- 菜单的texview 样式 -->
+    <style name="textViewStyle">
+        <item name="android:textSize">@dimen/textsize</item>
+        <item name="android:textColor">@color/mainMenu_1</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:textSize">@dimen/textsize</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColorHint">#bdbdbd</item>
+    </style>
+
+    <style name="buttonStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/textsize</item>
+        <item name="android:background">@drawable/button_selector</item>
+    </style>
+
+    <style name="customProgressBar" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:indeterminateDrawable">@drawable/custom_progress_bar</item>
+        <item name="android:layout_width">21dip</item>
+        <item name="android:layout_height">21dip</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="CustomProgressStyle" parent="@android:style/Widget.ProgressBar.Large">
+        <item name="android:minWidth">100dip</item>
+        <item name="android:maxWidth">100dip</item>
+        <item name="android:minHeight">100dip</item>
+        <item name="android:maxHeight">100dip</item>
+    </style>
+    <style name="AnimBottom1" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+    <style name="mystyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="MyWidget" parent="@android:style/Theme" />
+
+    <!-- Common list view styles -->
+    <style name="MyWidget.ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:cacheColorHint">#00ffffff</item>
+        <item name="android:dividerHeight">2px</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:fadeScrollbars">true</item>
+    </style>
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Holo.DialogWhenLarge">
+    </style>
 </resources>

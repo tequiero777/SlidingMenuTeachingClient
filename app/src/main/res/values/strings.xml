@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SlidingMenuTeachingClient</string>
+    <string name="app_name">分级诊疗SlidingMenu</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

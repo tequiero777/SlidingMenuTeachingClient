@@ -5,4 +5,40 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- 正文字体 -->
+    <dimen name="textsize">15sp</dimen>
+    <dimen name="titleTextSize">19sp</dimen>
+    <!-- 个人中心个人信息栏高度 -->
+    <dimen name="personal_personinfo">100dp</dimen>
+    <dimen name="chat_personal_personinfo">90dp</dimen>
+    <!-- 登录头像高宽 -->
+    <dimen name="login_imageSize">100dp</dimen>
+    <dimen name="basic_down_notification_margin">10dp</dimen>
+
+    <dimen name="drop_down_list_header_padding_top">12dp</dimen>
+    <dimen name="drop_down_list_header_padding_bottom">15dp</dimen>
+    <dimen name="drop_down_list_header_release_min_distance">20dp</dimen>
+    <dimen name="drop_down_list_header_progress_bar_height">36dp</dimen>
+    <dimen name="drop_down_list_footer_progress_bar_height">36dp</dimen>
+    <dimen name="drop_down_list_footer_button_margin_left">8dp</dimen>
+    <dimen name="drop_down_list_footer_button_height">48dp</dimen>
+
+    <!--  移动查房-->
+    <dimen name="patient_card_text_size">10.0sp</dimen>
+    <dimen name="patient_card_text_size1">12.0sp</dimen>
+    <dimen name="patient_card_name_size">16.8sp</dimen>
+    <dimen name="patient_bead_no_size">14.5sp</dimen>
+    <dimen name="login_title_text_size">24.5sp</dimen>
+
+    <!-- For buttons -->
+    <dimen name="common_text_size_large">18dp</dimen>
+    <!-- For list texts (top line) -->
+    <dimen name="common_text_size_middle">16dp</dimen>
+    <dimen name="common_text_size_middle_2">14dp</dimen>
+    <!-- For list texts (bottom line), summary texts, icon texts, descriptions, tag texts -->
+    <dimen name="common_text_size_small">13dp</dimen>
+    <dimen name="common_text_size_small_2">10dp</dimen>
+    <dimen name="common_text_size_small_3">12dp</dimen>
+    <dimen name="page_margin_width">12dp</dimen>
 </resources>

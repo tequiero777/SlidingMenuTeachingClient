@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/mainFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radioGroup" >
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/home"
+            style="@style/basicTabRidoMenu"
+            android:checked="true"
+            android:drawableTop="@drawable/main_home_selector"
+            android:text="主页" />
+
+        <RadioButton
+            android:id="@+id/resources"
+            style="@style/basicTabRidoMenu"
+            android:drawableTop="@drawable/main_resources_selector"
+            android:text="课件" />
+
+        <RadioButton
+            android:id="@+id/questions"
+            style="@style/basicTabRidoMenu"
+            android:drawableTop="@drawable/main_questions_selector"
+            android:text="提问" />
+        
+		<RadioButton
+            android:id="@+id/tasks"
+            style="@style/basicTabRidoMenu"
+            android:drawableTop="@drawable/main_tasks_selector"
+            android:text="任务" />
+		
+        <RadioButton
+            android:id="@+id/my"
+            style="@style/basicTabRidoMenu"
+            android:drawableTop="@drawable/main_my_selector"
+            android:text="我的" />
+    </RadioGroup>
+
+</RelativeLayout>
