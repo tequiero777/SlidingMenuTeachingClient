@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="#ffffff"
+    android:padding="10dp">
+    
+	<ImageView 
+	    android:id="@+id/taskoverview_listitem_image"
+	    android:layout_width="40dp"
+	    android:layout_height="40dp"
+	    android:layout_alignParentLeft="true"
+	    android:layout_centerVertical="true"/>
+	    
+   <TextView 
+       android:id="@+id/taskoverview_listitem_name"
+       android:layout_width="wrap_content"
+       android:layout_height="fill_parent"
+       android:layout_toRightOf="@+id/taskoverview_listitem_image"
+       android:layout_toLeftOf="@+id/taskoverview_listitem_button"
+       android:layout_centerVertical="true"
+       android:gravity="center_vertical"
+       android:paddingLeft="5dp"
+       android:paddingRight="5dp"
+       android:text=""
+       android:textColor="@color/grey"
+       android:textSize="12sp"/>
+    
+	
+	<TextView 
+	    android:id="@+id/taskoverview_listitem_button"
+	    android:layout_width="60dp"
+	    android:layout_height="30dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+	    android:gravity="center"
+	    android:textColor="#ffffff"
+	    android:textSize="12sp"
+	    android:background="@drawable/button_green_short_selector"
+	    android:focusable="false"/>
+	
+	    <!-- <ProgressBar 
+	            android:id="@+id/taskoverview_listitem_probar"
+	            android:layout_width="fill_parent"
+	            android:layout_height="2dp"
+	            android:layout_alignParentBottom="true"
+	            android:paddingLeft="10dp"
+	            android:paddingRight="10dp"
+	            android:progressDrawable="@drawable/myprogress_style_blue"
+	            style="@android:style/Widget.ProgressBar.Horizontal"
+	            android:visibility="gone"/> -->
+</RelativeLayout>

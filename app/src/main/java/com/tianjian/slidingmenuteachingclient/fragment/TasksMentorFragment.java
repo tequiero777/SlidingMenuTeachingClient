@@ -7,6 +7,37 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+
+import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.activity.SendTaskActivity;
+import com.tianjian.slidingmenuteachingclient.activity.TaskOverViewActivity;
+import com.tianjian.slidingmenuteachingclient.adapter.TasksMentorAdapter;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryTasksSrv.InQueryTaskSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryTasksSrv.InQueryTaskSrvResponse;
+import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
+import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
+import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
+
+import org.ksoap2.serialization.SoapObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * 导师端任务界面
  * <p>Title: TasksMentorFragment.java</p>
@@ -19,7 +50,7 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  * 
  */
 public class TasksMentorFragment extends BaseFragment{
-	/*private View rootView;
+	private View rootView;
 	private Button send_button;
 	private PullToRefreshGridView listview;
 	private TasksMentorAdapter adapter;
@@ -31,7 +62,7 @@ public class TasksMentorFragment extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 		if(rootView == null){
 			rootView = inflater.inflate(R.layout.tasks_mentor_layout, null);
 			systemApplcation = (SystemApplcation) getActivity().getApplication();
@@ -44,7 +75,7 @@ public class TasksMentorFragment extends BaseFragment{
 	private void initView() {
 		//快速发任务
 		send_button = (Button) rootView.findViewById(R.id.tasks_mentor_send);
-		send_button.setOnClickListener(new OnClickListener() {
+		send_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 //				Intent intent = new Intent(getActivity(), SendTaskActivity.class);
@@ -56,10 +87,10 @@ public class TasksMentorFragment extends BaseFragment{
 		});
 		
 		listview = (PullToRefreshGridView) rootView.findViewById(R.id.tasks_mentor_list);
-		listview.setOnItemClickListener(new OnItemClickListener() {
+		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+                                    int position, long id) {
 				Gson gson = new Gson();
 				Intent intent = new Intent(getActivity(), TaskOverViewActivity.class);
 				intent.putExtra("list", gson.toJson(list.get(position)));
@@ -67,8 +98,8 @@ public class TasksMentorFragment extends BaseFragment{
 			}
 		});
 		
-		listview.setMode(Mode.PULL_DOWN_TO_REFRESH);
-		listview.setOnRefreshListener(new OnRefreshListener2<GridView>() {
+		listview.setMode(PullToRefreshBase.Mode.PULL_DOWN_TO_REFRESH);
+		listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<GridView>() {
 
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
@@ -85,7 +116,7 @@ public class TasksMentorFragment extends BaseFragment{
 				
 			}
 		});
-		listview.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+		listview.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
 
 			@Override
 			public void onLastItemVisible() {
@@ -116,7 +147,7 @@ public class TasksMentorFragment extends BaseFragment{
      } 
 	
 	private void queryData(HashMap<String, Object> hashMap) {
-		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.teachingclient.R.style.customer_dialog);
+		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.slidingmenuteachingclient.R.style.customer_dialog);
 		NetWorkHepler.postWsData("taskWs", "process", hashMap, new INetWorkCallBack() {
 			SoapObject objectResult;
 			@Override
@@ -178,5 +209,5 @@ public class TasksMentorFragment extends BaseFragment{
 		hashMap.put("OPERATE_TYPE", "3");
 		hashMap.put("MENTOR_USERNAME", userDict.getUSERNAME());
 		queryData(hashMap);
-	}*/
+	}
 }

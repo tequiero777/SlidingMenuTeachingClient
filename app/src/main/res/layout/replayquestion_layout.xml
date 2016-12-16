@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4">
+    
+	<RelativeLayout
+	    android:id="@+id/replayquestion_toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#019dd9" >
+
+        <ImageButton
+            android:id="@+id/replayquestion_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="回复"
+            android:textColor="@color/white"
+            android:textSize="22sp" >
+        </TextView>
+    </RelativeLayout>
+    
+	
+	<EditText 
+	    android:id="@+id/replayquestion_edittext"
+	    android:background="@drawable/linear_boder"
+	    android:layout_width="fill_parent"
+	    android:layout_height="150dp"
+	    android:layout_below="@+id/replayquestion_toplayout"
+	    android:layout_margin="10dp"
+	    android:padding="10dp"
+	    android:textSize="16sp"
+	    android:scrollbars="vertical"
+	    android:hint="请输入回复内容..."
+	    android:gravity="top"
+	    android:cursorVisible="true"/>
+	
+	<Button 
+	     android:id="@+id/replayquestion_upload_mic"
+	     android:layout_width="fill_parent"
+	     android:layout_height="30dp"
+	     android:layout_marginLeft="10dp"
+	     android:layout_marginRight="10dp"
+	     android:layout_marginBottom="10dp"
+	     android:layout_below="@+id/replayquestion_edittext"
+	     android:gravity="center"
+	     android:text="长按录音,松开结束"
+	     android:textColor="#ffffff"
+	     android:textSize="14sp"
+	     android:background="@drawable/button_green_long_selector"/>
+	
+	<LinearLayout
+	    android:id="@+id/replayquestion_chooseupload"
+	    android:layout_below="@+id/replayquestion_upload_mic"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    
+	    <Button 
+		     android:id="@+id/replayquestion_upload_mp4"
+		     android:layout_width="0dp"
+		     android:layout_height="30dp"
+		     android:layout_weight="1"
+		     android:layout_marginLeft="10dp"
+		     android:layout_marginRight="10dp"
+		     android:layout_alignParentRight="true"
+		     android:layout_centerVertical="true"
+		     android:gravity="center"
+		     android:text="上传视频"
+		     android:textColor="#ffffff"
+		     android:textSize="12sp"
+		     android:background="@drawable/button_green_mid_selector"/>
+	    
+	    <Button 
+		     android:id="@+id/replayquestion_upload_word"
+		     android:layout_width="0dp"
+		     android:layout_height="30dp"
+		     android:layout_weight="1"
+		     android:layout_marginLeft="10dp"
+		     android:layout_marginRight="10dp"
+		     android:layout_alignParentRight="true"
+		     android:layout_centerVertical="true"
+		     android:gravity="center"
+		     android:text="上传文档"
+		     android:textColor="#ffffff"
+		     android:textSize="12sp"
+		     android:background="@drawable/button_green_mid_selector"/>
+	    
+	    <Button 
+		     android:id="@+id/replayquestion_upload_pic"
+		     android:layout_width="0dp"
+		     android:layout_height="30dp"
+		     android:layout_weight="1"
+		     android:layout_marginLeft="10dp"
+		     android:layout_marginRight="10dp"
+		     android:layout_alignParentRight="true"
+		     android:layout_centerVertical="true"
+		     android:gravity="center"
+		     android:text="上传图片"
+		     android:textColor="#ffffff"
+		     android:textSize="12sp"
+		     android:background="@drawable/button_green_mid_selector"/>
+	</LinearLayout>
+	
+	<Button 
+	    android:id="@+id/replayquestion_save"
+	    android:layout_width="fill_parent"
+	    android:layout_height="40dp"
+	    android:layout_margin="10dp"
+	    android:layout_alignParentBottom="true"
+	    android:textColor="#ffffff"
+	    android:textSize="18sp"
+	    android:text="保存"
+	    android:background="@drawable/button_blue_long_selector"/>
+	
+	<ScrollView 
+	    android:id="@+id/replayquestion_resources_scrollview"
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    android:layout_above="@+id/replayquestion_save"
+	    android:layout_below="@+id/replayquestion_chooseupload"
+	    android:fadeScrollbars="false"
+	    android:visibility="gone"
+	    android:layout_margin="10dp">
+	    
+	    <LinearLayout
+		    android:id="@+id/replayquestion_resources_content"
+		    android:layout_below="@+id/replayquestion_resources_list"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical">
+	    
+		</LinearLayout>
+	</ScrollView>
+	
+</RelativeLayout>

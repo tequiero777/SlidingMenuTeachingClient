@@ -110,4 +110,22 @@
     </style>
     <style name="AlertDialogCustom" parent="@android:style/Theme.Holo.DialogWhenLarge">
     </style>
+
+    <!-- 自定义 加载的dialog 样式 -->
+    <style name="customer_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+        <item name="android:windowCloseOnTouchOutside">false</item><!-- 点击不消失 -->
+    </style>
+
+    <style name="tab_button_sty">
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/goods_onoff_color_selector</item>
+        <item name="android:background">@drawable/goods_on_off_button_selector</item>
+    </style>
 </resources>

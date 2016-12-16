@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <TextView 
+          android:id="@+id/task_stu_item_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:paddingTop="10dp"
+          android:text="1、先观看ppt, 排队问题中重复数数要去掉1的三种解题方法。 2、质疑反馈。 3、拓展 1、先观看ppt, 排队问题中重复数数要去掉1的三种解题方法。 2、质疑反馈。 3、拓展  "
+          android:textColor="@color/black" />
+    
+	<RelativeLayout 
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:padding="10dp">
+	         
+         <TextView 
+             android:id="@+id/task_stu_item_time"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_centerVertical="true"
+	         android:gravity="center"
+	         android:layout_marginTop="10dp"
+	         android:text="0000-00-00 00:00:00"
+	         android:textColor="@color/grey" />
+         
+         <TextView 
+		     android:id="@+id/task_stu_item_button"
+		     android:layout_width="60dp"
+		     android:layout_height="30dp"
+		     android:layout_alignParentRight="true"
+		     android:layout_centerVertical="true"
+		     android:gravity="center"
+		     android:text="接收"
+		     android:textColor="#ffffff"
+		     android:textSize="12sp"
+		     android:background="@drawable/button_green_mid_selector"/>
+   	</RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4">
+    
+	<RelativeLayout
+	    android:id="@+id/reaskquestion_toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#019dd9" >
+
+        <ImageButton
+            android:id="@+id/reaskquestion_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="追问"
+            android:textColor="@color/white"
+            android:textSize="22sp" >
+        </TextView>
+    </RelativeLayout>
+    
+	
+	<EditText 
+	    android:id="@+id/reaskquestion_edittext"
+	    android:background="@drawable/linear_boder"
+	    android:layout_width="fill_parent"
+	    android:layout_height="150dp"
+	    android:layout_below="@+id/reaskquestion_toplayout"
+	    android:layout_margin="10dp"
+	    android:padding="10dp"
+	    android:textSize="16sp"
+	    android:scrollbars="vertical"
+	    android:hint="请输入追问内容..."
+	    android:gravity="top"
+	    android:cursorVisible="true"/>
+	
+	
+	<Button 
+	    android:id="@+id/reaskquestion_save"
+	    android:layout_width="fill_parent"
+	    android:layout_height="40dp"
+	    android:layout_margin="10dp"
+	    android:layout_alignParentBottom="true"
+	    android:textColor="#ffffff"
+	    android:textSize="18sp"
+	    android:text="保存"
+	    android:background="@drawable/button_blue_long_selector"/>
+	
+</RelativeLayout>

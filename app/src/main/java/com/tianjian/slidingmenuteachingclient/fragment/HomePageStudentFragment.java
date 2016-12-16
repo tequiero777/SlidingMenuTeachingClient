@@ -7,6 +7,55 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.activity.AskQuestionActivity;
+import com.tianjian.slidingmenuteachingclient.activity.QuestionOverViewActivity;
+import com.tianjian.slidingmenuteachingclient.activity.TaskOverViewActivity;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv.InQueryQuestionSrvOutputCollection;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv.InQueryQuestionSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv.InQueryQuestionSrvResponse;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryTasksSrv.InQueryTaskSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryTasksSrv.InQueryTaskSrvResponse;
+import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
+import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
+import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+
+import org.ksoap2.serialization.SoapObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * 学生端主页
  * <p>Title: HomePageStudent.java</p>
@@ -19,7 +68,7 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  * 
  */
 public class HomePageStudentFragment extends BaseFragment{
-	/*private View rootView;
+	private View rootView;
 	private InLoginSrvOutputItem userDict;
 	private SystemApplcation systemApplcation;
 	private TextView taskText,taskTime,question_name,question_content,question_time,question_flag;
@@ -38,7 +87,7 @@ public class HomePageStudentFragment extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 		if(rootView == null){
 			rootView = inflater.inflate(R.layout.homepage_student_layout, null);
 			systemApplcation = (SystemApplcation) getActivity().getApplication();
@@ -52,7 +101,7 @@ public class HomePageStudentFragment extends BaseFragment{
 	
 	private void initView() {
 		taskLayout = (RelativeLayout) rootView.findViewById(R.id.home_stu_tasklayout);
-		taskLayout.setOnClickListener(new OnClickListener() {
+		taskLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(null!=listitem){
@@ -82,7 +131,7 @@ public class HomePageStudentFragment extends BaseFragment{
 		imagelayout = (LinearLayout) rootView.findViewById(R.id.home_stu_question_imagelayout);
 		imagelayout.removeAllViews();
 		question_layout = (LinearLayout) rootView.findViewById(R.id.home_stu_layout);
-		question_layout.setOnClickListener(new OnClickListener() {
+		question_layout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(null!=question_listitem){
@@ -103,7 +152,7 @@ public class HomePageStudentFragment extends BaseFragment{
 		queryNewQuestion(hashMap2);
 		
 		ask = (Button) rootView.findViewById(R.id.home_stu_askquestion);
-		ask.setOnClickListener(new OnClickListener() {
+		ask.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), AskQuestionActivity.class);
@@ -113,7 +162,7 @@ public class HomePageStudentFragment extends BaseFragment{
 		
 		refresh_layout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_stu_layout);
 	    refresh_layout.setColorSchemeResources(R.color.green, R.color.gray, R.color.blue, R.color.white);//设置跑动的颜色值
-	    refresh_layout.setOnRefreshListener(new OnRefreshListener() {
+	    refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
 				initView();
@@ -183,7 +232,7 @@ public class HomePageStudentFragment extends BaseFragment{
 									ImageView iv = new ImageView(getActivity());
 									String path=Environment.getExternalStorageDirectory()+"/分级诊疗下载文件/"+currentFileName+currentFileType;
 									iv.setImageBitmap(loadBitmap(path,200,200));
-									iv.setLayoutParams(new LayoutParams(200, 200));
+									iv.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
 									iv.setPadding(0, 0, 20, 0);
 									imagelayout.addView(iv);
 								}
@@ -264,16 +313,16 @@ public class HomePageStudentFragment extends BaseFragment{
 			@Override  
 		        public void run() {  
 		            try {  
-		                URL url = new URL(filePath);  
+		                URL url = new URL(filePath);
 		                //新建连接并获取资源
-		                HttpURLConnection conn = (HttpURLConnection)url.openConnection(); 
+		                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		                conn.setConnectTimeout(5000);
 		                conn.setRequestMethod("POST");
 		                conn.setRequestProperty("Accept-Encoding", "identity"); 
 		                conn.connect();  
 		                int length = conn.getContentLength();
 		                
-		                InputStream is = conn.getInputStream();  
+		                InputStream is = conn.getInputStream();
 		                
 		                File file = new File(Environment.getExternalStorageDirectory()+"/分级诊疗下载文件/");
 		                if(!file.exists()){
@@ -288,7 +337,7 @@ public class HomePageStudentFragment extends BaseFragment{
 		                	sdfile.delete();
 		                }
 		                
-		                FileOutputStream fos = new FileOutputStream(sdfile);  
+		                FileOutputStream fos = new FileOutputStream(sdfile);
 		                 
 		                int count = 0;  
 		                byte buf[] = new byte[512];  
@@ -299,7 +348,7 @@ public class HomePageStudentFragment extends BaseFragment{
 		                   //把进度传给updateHandler更新ProgressDialog,从消息池中拿来一个msg 不需要另开辟空间
 		                    updateHandler.sendMessage(updateHandler.obtainMessage(UPDATE_DOWNLOADING)); 
 		                    if(numread <= 0){    
-		                    	Message message=new Message();  
+		                    	Message message=new Message();
 		                    	Bundle bundle=new Bundle();  
 		                        bundle.putString("currentFileName", fileName); 
 		                        bundle.putString("currentFileType", fileType);
@@ -313,10 +362,10 @@ public class HomePageStudentFragment extends BaseFragment{
 		                }while(!canceled);  
 			                fos.close();  
 			                is.close();  
-		            } catch (MalformedURLException e) {  
+		            } catch (MalformedURLException e) {
 		                e.printStackTrace(); 
 		                updateHandler.sendMessage(updateHandler.obtainMessage(UPDATE_DOWNLOAD_ERROR,e.getMessage()));
-		            } catch(IOException e){  
+		            } catch(IOException e){
 		                e.printStackTrace();  
 		                updateHandler.sendMessage(updateHandler.obtainMessage(UPDATE_DOWNLOAD_ERROR,e.getMessage()));
 		            }  
@@ -325,7 +374,7 @@ public class HomePageStudentFragment extends BaseFragment{
 		}.start();
 	}
 		
-	Handler updateHandler = new Handler() 
+	Handler updateHandler = new Handler()
 	{
 		@Override
 		public void handleMessage(Message msg) {
@@ -361,7 +410,7 @@ public class HomePageStudentFragment extends BaseFragment{
 			ImageView iv = new ImageView(getActivity());
 			String path=Environment.getExternalStorageDirectory()+"/分级诊疗下载文件/"+name+type;
 			iv.setImageBitmap(loadBitmap(path,100,200));
-			iv.setLayoutParams(new LayoutParams(100, 200));
+			iv.setLayoutParams(new ViewGroup.LayoutParams(100, 200));
 			iv.setPadding(0, 0, 20, 0);
 			imagelayout.addView(iv);
 		} else {
@@ -408,5 +457,5 @@ public class HomePageStudentFragment extends BaseFragment{
 		}
 	    }
 	    return inSampleSize;
-	}*/
+	}
 }

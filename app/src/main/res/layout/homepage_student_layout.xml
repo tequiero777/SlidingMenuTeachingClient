@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <android.support.v4.widget.SwipeRefreshLayout
+		    android:id="@+id/refresh_stu_layout"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+        
+	        <ScrollView
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content">
+		        <LinearLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical">
+				    <LinearLayout 
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_margin="5dp"
+				            android:padding="5dp"
+				            android:text="最新学习任务"
+				            android:gravity="center_vertical"
+				            android:drawableLeft="@drawable/pushpin_icon"
+				            android:drawablePadding="5dp"
+				            android:textColor="@color/grey" />
+				        
+				        <RelativeLayout 
+				            android:id="@+id/home_stu_tasklayout"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_marginLeft="5dp"
+					        android:layout_marginRight="5dp"
+					        android:background="@drawable/linear_boder">
+					        
+				            <TextView 
+				                android:id="@+id/home_stu_tasktext"
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_margin="5dp"
+					            android:padding="5dp"
+					            android:text=""
+					            android:textColor="@color/black" />
+				            
+				            <TextView 
+				                android:id="@+id/home_stu_tasktime"
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_below="@+id/home_stu_tasktext"
+					            android:layout_margin="5dp"
+				            	android:padding="5dp"
+					            android:text=""
+					            android:textColor="@color/grey" />
+				        </RelativeLayout>
+				    </LinearLayout>
+				    
+				    <LinearLayout 
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical">
+				        
+				       <RelativeLayout 
+					        android:layout_width="fill_parent"
+					        android:layout_height="40dp">
+				            
+					        <TextView 
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_margin="5dp"
+					            android:padding="5dp"
+					            android:layout_alignParentLeft="true"
+					            android:text="最新回复我的提问"
+					            android:gravity="center_vertical"
+					            android:drawableLeft="@drawable/paperclip_icon"
+					            android:drawablePadding="5dp"
+					            android:textColor="@color/grey" />
+					        
+					        <Button 
+					            android:id="@+id/home_stu_askquestion"
+					            android:layout_width="wrap_content"
+					            android:layout_height="30dp"
+					            android:layout_centerVertical="true"
+					            android:layout_alignParentRight="true"
+					            android:layout_marginRight="7dp"
+					            android:text="我要提问"
+					            android:textColor="#ffffff"
+					            android:textSize="12sp"
+					            android:background="@drawable/button_green_short_selector"/>
+				      	</RelativeLayout>
+				      	
+				       
+				       	<LinearLayout
+				       	    android:id="@+id/home_stu_layout"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:background="#ffffff"
+						    android:layout_marginLeft="7dp"
+						    android:layout_marginRight="7dp"
+						    android:visibility="gone"
+						    android:orientation="horizontal" >
+						    
+							<com.tianjian.slidingmenuteachingclient.util.CircleImageView
+							    android:id="@+id/home_stu_question_imageview"
+							    android:layout_width="60dp"
+							    android:layout_height="60dp"
+							    android:layout_margin="5dp"
+							    android:src="@drawable/img_nan"/>
+							
+							<LinearLayout 
+							    android:layout_width="fill_parent"
+							    android:layout_height="wrap_content"
+							    android:orientation="vertical"
+							    android:layout_margin="5dp"
+							    android:background="#ffffff">
+							    
+							    <RelativeLayout 
+								    android:layout_width="fill_parent"
+								    android:layout_height="wrap_content">
+							    	
+							        <TextView 
+							            android:id="@+id/home_stu_question_name"
+							            android:layout_width="wrap_content"
+							            android:layout_height="wrap_content"
+							            android:gravity="center_vertical"
+							            android:layout_alignParentLeft="true"
+							            android:layout_marginLeft="5dp"
+							            android:textColor="@color/grey"
+							            android:textSize="18sp"/>
+							    
+							        <TextView 
+							             android:id="@+id/home_stu_question_flag"
+								         android:layout_width="40dp"
+								         android:layout_height="15dp"
+								         android:layout_marginRight="5dp"
+								         android:layout_alignParentRight="true"
+								         android:gravity="center"
+								         android:layout_centerVertical="true"
+								         android:textColor="@color/white"
+								         android:textSize="10sp"
+								         android:background="@drawable/button_orange_short_normal" />
+								</RelativeLayout>
+								
+							    <LinearLayout 
+								    android:layout_width="fill_parent"
+								    android:layout_height="wrap_content">
+							    
+							    	<TextView 
+							    	   android:id="@+id/home_stu_question_content"
+							            android:layout_width="fill_parent"
+							            android:layout_height="wrap_content"
+							            android:layout_weight="1"
+							            android:gravity="center_vertical"
+							            android:layout_margin="5dp"
+							            android:textColor="@color/grey"
+							            android:textSize="12sp"/>
+								</LinearLayout>
+								
+							    <LinearLayout 
+							        android:id="@+id/home_stu_question_imagelayout"
+								    android:layout_width="fill_parent"
+								    android:layout_height="wrap_content"
+								    android:orientation="horizontal">
+							    
+								</LinearLayout>
+								
+						    	<TextView 
+						    	    android:id="@+id/home_stu_question_time"
+						            android:layout_width="fill_parent"
+						            android:layout_height="wrap_content"
+						            android:layout_weight="1"
+						            android:gravity="center_vertical"
+						            android:layout_marginTop="5dp"
+						            android:paddingLeft="5dp"
+						            android:textColor="@color/grey"
+						            android:textSize="12sp"/>
+							</LinearLayout>
+						</LinearLayout>
+				    </LinearLayout>
+    			</LinearLayout>
+    		</ScrollView>
+    	</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

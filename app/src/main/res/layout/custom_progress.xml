@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <com.tianjian.slidingmenuteachingclient.view.ProgressWheel
+        android:layout_gravity="center"
+        android:id="@+id/customer_progressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        ProgressWheel:text="1%"
+        ProgressWheel:circleColor="@color/transparent"
+        ProgressWheel:textColor="#d4d6d3"
+        ProgressWheel:textSize="16sp"
+        ProgressWheel:rimColor="#6bdeff"
+        ProgressWheel:barLength="20dp" 
+        ProgressWheel:barColor="#d4d6d3"
+        ProgressWheel:barWidth="10dp"
+        ProgressWheel:rimWidth="10dp" 
+        ProgressWheel:spinSpeed="3dp" />
+
+</LinearLayout>

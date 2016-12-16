@@ -7,6 +7,39 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+
+import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.activity.TaskOverViewActivity;
+import com.tianjian.slidingmenuteachingclient.adapter.TasksStuAdapter;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryTasksSrv.InQueryTaskSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryTasksSrv.InQueryTaskSrvResponse;
+import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
+import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
+import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import org.ksoap2.serialization.SoapObject;
+import android.widget.AdapterView.OnItemClickListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * 学生端任务界面
  * <p>Title: TasksStudentFragment.java</p>
@@ -19,7 +52,7 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  * 
  */
 public class TasksStudentFragment extends BaseFragment{
-	/*private View rootView;
+	private View rootView;
 	private PullToRefreshGridView listview;
 	private TasksStuAdapter adapter;
 	private SystemApplcation systemApplcation;
@@ -29,7 +62,7 @@ public class TasksStudentFragment extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 		if(rootView == null){
 			rootView = inflater.inflate(R.layout.tasks_stu_layout, null);
 			systemApplcation = (SystemApplcation) getActivity().getApplication();
@@ -46,7 +79,7 @@ public class TasksStudentFragment extends BaseFragment{
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+                                    int position, long id) {
 				Gson gson = new Gson();
 				Intent intent = new Intent(getActivity(), TaskOverViewActivity.class);
 				intent.putExtra("list", gson.toJson(list.get(position)));
@@ -102,7 +135,7 @@ public class TasksStudentFragment extends BaseFragment{
      } 
 	
 	private void queryData(HashMap<String, Object> hashMap) {
-		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.teachingclient.R.style.customer_dialog);
+		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.slidingmenuteachingclient.R.style.customer_dialog);
 		NetWorkHepler.postWsData("taskWs", "process", hashMap, new INetWorkCallBack() {
 			SoapObject objectResult;
 			@Override
@@ -155,5 +188,5 @@ public class TasksStudentFragment extends BaseFragment{
 			adapter.notifyDataSetChanged();
 		}
 		
-	}*/
+	}
 }

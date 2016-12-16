@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#019dd9" >
+
+        <ImageButton
+            android:id="@+id/taskoverview_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="任务详细"
+            android:textColor="@color/white"
+            android:textSize="22sp" >
+        </TextView>
+    </RelativeLayout>
+    
+    <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text="任务内容"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/pushpin_icon"
+            android:drawablePadding="5dp"
+            android:textColor="@color/grey" />
+    
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/linear_boder">
+        
+        <TextView 
+            android:id="@+id/taskoverview_tasktext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/black" />
+           
+        <TextView 
+            android:id="@+id/taskoverview_tasktime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/taskoverview_tasktext"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/grey" />
+       </RelativeLayout>
+       
+      <RelativeLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dp">
+            
+	        <TextView 
+	            android:id="@+id/taskoverview_fj"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="5dp"
+	            android:padding="5dp"
+	            android:layout_alignParentLeft="true"
+	            android:text="附件"
+	            android:gravity="center_vertical"
+	            android:drawableLeft="@drawable/paperclip_icon"
+	            android:drawablePadding="5dp"
+	            android:textColor="@color/grey" />
+	        
+	        <ProgressBar 
+	            android:id="@+id/taskoverview_probar"
+	            android:layout_width="fill_parent"
+	            android:layout_height="2dp"
+	            android:layout_toRightOf="@+id/taskoverview_fj"
+	            android:paddingLeft="10dp"
+	            android:paddingRight="20dp"
+	            android:layout_centerVertical="true"
+	            android:gravity="center_vertical"
+	            android:progressDrawable="@drawable/myprogress_style_blue"
+	            style="@android:style/Widget.ProgressBar.Horizontal"/>
+      	</RelativeLayout>
+      	
+	    <ListView 
+	        android:paddingLeft="10dp"
+	    	android:paddingRight="10dp"
+	    	android:paddingBottom="10dp"
+	        android:id="@+id/taskoverview_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:dividerHeight="5dp"
+	        android:divider="@android:color/transparent"
+	        android:numColumns="3"
+	        android:horizontalSpacing="2dp"
+	        android:verticalSpacing="5dp"
+	        >
+	    </ListView>
+</LinearLayout>

@@ -7,6 +7,66 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.os.Handler;
+import android.os.Message;
+import android.graphics.BitmapFactory.Options;
+import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.activity.ChangePwdActivity;
+import com.tianjian.slidingmenuteachingclient.activity.ContactAdminActivity;
+import com.tianjian.slidingmenuteachingclient.activity.MyInfoActivity;
+import com.tianjian.slidingmenuteachingclient.activity.MyStuOrMentorActivity;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvResponse;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryAppUpdateSrv.DOCINVHISInQueryAppUpdateSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryAppUpdateSrv.DOCINVHISInQueryAppUpdateSrvResponse;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryCountSrv.InQueryCountSrvResponse;
+import com.tianjian.slidingmenuteachingclient.util.CircleImageView;
+import com.tianjian.slidingmenuteachingclient.util.ImageUtil;
+import com.tianjian.slidingmenuteachingclient.util.StringUtil;
+import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
+import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
+import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
+import android.app.AlertDialog.Builder;
+import org.ksoap2.serialization.SoapObject;
+import android.view.View.OnClickListener;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 /**
  * TODO
  * <p>Title: UserInfoMentorFragment.java</p>
@@ -19,7 +79,7 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  * 
  */
 public class UserInfoMentorFragment extends BaseFragment{
-	/*private View rootView;
+	private View rootView;
 	public final static int REQUEST_PICTURE_CHOOSE = 1;
 	public final static int  REQUEST_CAMERA_IMAGE = 2;
 	public final static int REQUEST_CROP_IMAGE = 3;
@@ -48,7 +108,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+							 Bundle savedInstanceState) {
 		if(rootView == null){
 			rootView = inflater.inflate(R.layout.userinfo_mentor_layout, null);
 			systemApplcation = (SystemApplcation) getActivity().getApplication();
@@ -250,7 +310,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 	}
 	
 	private void querySaveImage(HashMap<String, Object> hashMap) {
-		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.teachingclient.R.style.customer_dialog);
+		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.slidingmenuteachingclient.R.style.customer_dialog);
 		NetWorkHepler.postWsData("loginWs", "process", hashMap, new INetWorkCallBack() {
 			SoapObject objectResult;
 			@Override
@@ -345,11 +405,11 @@ public class UserInfoMentorFragment extends BaseFragment{
 		});
 	}
 	
-	*//***
+	/***
 	 * 裁剪图片
 	 * @param activity Activity
 	 * @param uri 图片的Uri
-	 *//*
+	 */
 	public void cropPicture(Activity activity, Uri uri) {
 		Intent innerIntent = new Intent("com.android.camera.action.CROP");
 		innerIntent.setDataAndType(uri, "image*//*");
@@ -368,10 +428,10 @@ public class UserInfoMentorFragment extends BaseFragment{
 		startActivityForResult(innerIntent, REQUEST_CROP_IMAGE);
 	}
 	
-	*//**
+	/**
 	 * 保存裁剪的图片的路径
 	 * @return
-	 *//*
+	 */
 	public String getImagePath(Context context){
 		String path;
 		
@@ -412,7 +472,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 	}
 	
 	private void loadData(HashMap<String, Object> request){
-		final CustomerProgress customerProgress = new CustomerProgress(getActivity(),com.tianjian.teachingclient.R.style.customer_dialog);
+		final CustomerProgress customerProgress = new CustomerProgress(getActivity(),com.tianjian.slidingmenuteachingclient.R.style.customer_dialog);
 		NetWorkHepler.postWsData("appUpdateWs", "process", request, new INetWorkCallBack() {
 			private SoapObject objectResult;
 			@Override
@@ -447,8 +507,8 @@ public class UserInfoMentorFragment extends BaseFragment{
 					float verson = Float.valueOf(StringUtil.isBlank(item.getVERSION())?"0":item.getVERSION());
 					float currentVerson = 1;
 					try {
-						 currentVerson = Float.valueOf(getActivity().getPackageManager().getPackageInfo( "com.tianjian.teachingclient",0).versionName);
-					} catch (NameNotFoundException e) {
+						 currentVerson = Float.valueOf(getActivity().getPackageManager().getPackageInfo( "com.tianjian.slidingmenuteachingclient",0).versionName);
+					} catch (PackageManager.NameNotFoundException e) {
 						e.printStackTrace();
 					}
 					if("2".equals(item.getUPDATEFLAG())){
@@ -460,7 +520,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 	                         proBar.setMax(100);
 	                         proBar.setProgress(0);
 						}else{
-							Toast.makeText(getActivity(), "没有内存卡", 100).show();
+							Toast.makeText(getActivity(), "没有内存卡", Toast.LENGTH_LONG).show();
 						}
 					}else if("1".equals(item.getUPDATEFLAG()) && verson >currentVerson){
 						//updateFlag.setVisibility(View.VISIBLE);
@@ -514,12 +574,12 @@ public class UserInfoMentorFragment extends BaseFragment{
 			@Override  
 		        public void run() {  
 		            try {  
-		                URL url = new URL(listdata.get(0).getUPDATEURL());  
+		                URL url = new URL(listdata.get(0).getUPDATEURL());
 		                //新建连接并获取资源
-		                HttpURLConnection conn = (HttpURLConnection)url.openConnection();  
+		                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		                conn.connect();  
 		                int length = conn.getContentLength();  
-		                InputStream is = conn.getInputStream();  
+		                InputStream is = conn.getInputStream();
 		                
 		                File external = getActivity().getExternalFilesDir("download");
 		                
@@ -541,7 +601,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 		                	ApkFile.delete();
 		                }
 		                
-		                FileOutputStream fos = new FileOutputStream(ApkFile);  
+		                FileOutputStream fos = new FileOutputStream(ApkFile);
 		                 
 		                int count = 0;  
 		                byte buf[] = new byte[512];  
@@ -561,10 +621,10 @@ public class UserInfoMentorFragment extends BaseFragment{
 		                }while(!canceled);  
 			                fos.close();  
 			                is.close();  
-		            } catch (MalformedURLException e) {  
+		            } catch (MalformedURLException e) {
 		                e.printStackTrace(); 
 		                updateHandler.sendMessage(updateHandler.obtainMessage(UPDATE_DOWNLOAD_ERROR,e.getMessage()));
-		            } catch(IOException e){  
+		            } catch(IOException e){
 		                e.printStackTrace();  
 		                updateHandler.sendMessage(updateHandler.obtainMessage(UPDATE_DOWNLOAD_ERROR,e.getMessage()));
 		            }  
@@ -630,5 +690,5 @@ public class UserInfoMentorFragment extends BaseFragment{
 				Uri.fromFile(new File(saveDir, updateSaveName)),
 				"application/vnd.android.package-archive");
 		getActivity().startActivityForResult(intent, 6);
-	}*/
+	}
 }

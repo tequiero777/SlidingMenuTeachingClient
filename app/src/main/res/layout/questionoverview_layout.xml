@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4">
+    
+    <RelativeLayout
+        android:id="@+id/questionoverview_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#019dd9" >
+
+        <ImageButton
+            android:id="@+id/questionoverview_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="问题详细"
+            android:textColor="@color/white"
+            android:textSize="22sp" >
+        </TextView>
+    </RelativeLayout>
+<!--     
+    <TextView 
+        android:id="@+id/questionoverview_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questionoverview_title_layout"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="问题内容"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/pushpin_icon"
+        android:drawablePadding="5dp"
+        android:textColor="@color/grey" /> -->
+    
+    <RelativeLayout 
+        android:id="@+id/questionoverview_content_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questionoverview_title_layout"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/linear_boder">
+        
+        <TextView 
+            android:id="@+id/questionoverview_questiontext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:maxHeight="100dp"
+            android:scrollbars="vertical"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/black" />
+        
+        <GridView 
+	        android:paddingLeft="10dp"
+	    	android:paddingRight="10dp"
+	        android:id="@+id/questionoverview_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/questionoverview_questiontext"
+	        android:dividerHeight="2dp"
+	        android:divider="@android:color/transparent"
+	        android:numColumns="4"
+	        android:horizontalSpacing="2dp"
+	        android:verticalSpacing="2dp"
+	        >
+	    </GridView>
+	       
+        <TextView 
+            android:id="@+id/questionoverview_questiontime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/questionoverview_list"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/grey" />
+       </RelativeLayout>
+       
+    
+    <Button 
+	    android:id="@+id/questionoverview_replay"
+	    android:layout_width="fill_parent"
+	    android:layout_height="40dp"
+	    android:layout_margin="10dp"
+	    android:layout_alignParentBottom="true"
+	    android:textColor="#ffffff"
+	    android:textSize="18sp"
+	    android:background="@drawable/button_orange_long_selector"
+	    android:visibility="gone"/>
+    
+	<ListView 
+        android:paddingLeft="10dp"
+    	android:paddingRight="10dp"
+        android:id="@+id/questionoverview_answers_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/questionoverview_replay"
+        android:layout_below="@+id/questionoverview_content_layout"
+        android:dividerHeight="2dp"
+        android:divider="@android:color/transparent"
+        android:numColumns="1"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="5dp"
+        >
+    </ListView>
+</RelativeLayout>

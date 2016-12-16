@@ -23,7 +23,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         android:name="com.tianjian.slidingmenuteachingclient.application.SystemApplcation">
         <activity
             android:name=".activity.LoginActivity"
@@ -38,6 +38,65 @@
         <activity android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+
+        <!-- 我的基本信息-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.MyInfoActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 修改密码-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.ChangePwdActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 我的导师我的学生-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.MyStuOrMentorActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 发任务-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.SendTaskActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 选择学生-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.ChooseStuActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 查看任务详细-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.TaskOverViewActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 提问-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.AskQuestionActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 查看提问详细-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.QuestionOverViewActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 追问问题-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.ReAskQuestionActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 回复问题-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.ReplayQuestionActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
+        </activity>
+        <!-- 下载服务-->
+        <service android:name="com.tianjian.slidingmenuteachingclient.service.DownloadFileService" android:label="@string/app_name"/>
+
+        <!-- 联系管理员-->
+        <activity android:name="com.tianjian.slidingmenuteachingclient.activity.ContactAdminActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
         </activity>
     </application>
 

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+    
+	<ImageView 
+	    android:id="@+id/choosestu_item_image"
+	    android:layout_width="45dp"
+	    android:layout_height="60dp"
+	    android:scaleType="fitXY"
+	    android:layout_alignParentLeft="true"
+	    android:src="@drawable/img_nan"/>
+	
+	<CheckBox 
+	    android:id="@+id/choosestu_item_checkbox"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"/>
+	
+	<LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="60dp"
+	    android:orientation="vertical"
+	    android:layout_toRightOf="@+id/choosestu_item_image"
+	    android:layout_toLeftOf="@+id/choosestu_item_checkbox"
+	    android:layout_marginLeft="10dp">
+	    
+	    <LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="1">
+	    	
+	        <TextView 
+	            android:id="@+id/choosestu_item_name"
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:gravity="center_vertical"
+	            android:paddingLeft="10dp"
+	            android:text="例会"
+	            android:textColor="@color/grey"
+	            android:textSize="16sp"/>
+	    
+	        <TextView 
+	            android:id="@+id/choosestu_item_sex"
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:text="男"
+	            android:textColor="@color/grey"
+	            android:textSize="14sp"/>
+		</LinearLayout>
+		
+	    <LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="1">
+	    
+	    	<TextView 
+	    	    android:id="@+id/choosestu_item_hospital"
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:gravity="center_vertical"
+	            android:paddingLeft="10dp"
+	            android:text="重庆市中医院"
+	            android:textColor="@color/grey"
+	            android:textSize="10sp"/>
+	    	
+	        <TextView 
+	            android:id="@+id/choosestu_item_phone"
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:text="13782379291"
+	            android:textColor="@color/grey"
+	            android:textSize="10sp"/>
+		</LinearLayout>
+	</LinearLayout>
+	
+</RelativeLayout>

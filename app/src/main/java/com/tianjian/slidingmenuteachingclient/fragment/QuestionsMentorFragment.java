@@ -7,6 +7,29 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.adapter.TabsAdapter;
+import com.tianjian.slidingmenuteachingclient.bean.ClassBean;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 导师端提问
  * <p>Title: QuestionsMentorFragment.java</p>
@@ -19,13 +42,13 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  * 
  */
 public class QuestionsMentorFragment extends BaseFragment{
-	/*private LinkedList<RadioButton> tabRadioButtons = new LinkedList<RadioButton>();
+	private LinkedList<RadioButton> tabRadioButtons = new LinkedList<RadioButton>();
 	private ViewPager vPager = null;
-	*//**     * 选项卡总数     *//*
+	/**     * 选项卡总数     */
 	private static int tab_count = 2;    
-	*//**     * 当前显示的选项卡位置     *//*
+	/**     * 当前显示的选项卡位置     */
 	private int current_index = 0;        
-	*//**     * 选项卡标题     *//*
+	/**     * 选项卡标题     */
 	private List<ClassBean> tabsList = new ArrayList<ClassBean>();
 	private TabsAdapter hta;
 	private LinearLayout titleListview;
@@ -35,7 +58,7 @@ public class QuestionsMentorFragment extends BaseFragment{
 	private List<Fragment> fragmentList = null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 		if(rootView == null){
 			rootView = inflater.inflate(R.layout.questions_mentor_layout, null);
 			vPager = (ViewPager) rootView.findViewById(R.id.vPager);
@@ -113,8 +136,8 @@ public class QuestionsMentorFragment extends BaseFragment{
 			tv.setGravity(Gravity.CENTER);
 			tabRadioButtons.addLast(tv);
 			if(i==0){
-				Resources resource = (Resources) getActivity().getBaseContext().getResources();  
-				ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.class_title_color_sel);  
+				Resources resource = (Resources) getActivity().getBaseContext().getResources();
+				ColorStateList csl = (ColorStateList) resource.getColorStateList(R.color.class_title_color_sel);
 				
 				tv.setTextColor(csl);
 				tv.setChecked(true);
@@ -129,9 +152,9 @@ public class QuestionsMentorFragment extends BaseFragment{
 		vPager.setAdapter(hta);
 	}    
 	
-	*//**
+	/**
      * 头标点击监听
-     *//*
+     */
     public class MyOnClickListener implements View.OnClickListener {
         private int index = 0;
 
@@ -152,5 +175,5 @@ public class QuestionsMentorFragment extends BaseFragment{
         	}
             vPager.setCurrentItem(index);
         }
-    };*/
+    };
 }

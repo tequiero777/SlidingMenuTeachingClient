@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#ffffff"
+	android:orientation="vertical" >
+    
+    <android.support.v4.widget.SwipeRefreshLayout
+		    android:id="@+id/refresh_men_info_layout"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+        
+	        <ScrollView
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content">
+		        <LinearLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical">
+					<RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:background="#009dd9"
+				        android:paddingLeft="10dp" 
+				        android:paddingTop="20dp"
+				        android:paddingBottom="15dp">
+				
+				        <com.tianjian.slidingmenuteachingclient.util.CircleImageView
+				            android:id="@+id/mentor_user_image"
+				            android:layout_width="70dp"
+				            android:layout_height="70dp"
+				            android:layout_centerHorizontal="true"
+				            android:src="@drawable/img_nan" />
+				
+						<TextView
+				            android:id="@+id/mentor_userinfo_name"
+				            android:layout_width="match_parent"
+				            android:layout_height="wrap_content"
+				            android:layout_below="@+id/mentor_user_image"
+				            android:layout_centerHorizontal="true"
+				            android:gravity="center"
+				            android:paddingTop="10dp"
+				            android:textColor="#ffffff"
+				            android:textSize="20.0sp"/>
+				    </RelativeLayout>
+				
+					<LinearLayout 
+					    android:layout_width="fill_parent"
+					    android:layout_height="wrap_content"
+					    android:layout_marginTop="10dp"
+					    android:orientation="horizontal">
+					    
+					    <RelativeLayout 
+					        android:layout_width="0dp"
+					        android:layout_height="wrap_content"
+					        android:layout_weight="1">
+					        
+					        <ImageView 
+					            android:id="@+id/tasks"
+					            android:layout_width="30dp"
+					            android:layout_height="30dp"
+					            android:src="@drawable/sendtasks_icon"
+					            android:layout_centerHorizontal="true"/>
+					        
+					        <TextView 
+					            android:id="@+id/tasks_text"
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_centerHorizontal="true"
+					            android:layout_below="@+id/tasks"
+					            android:textColor="@color/grey"
+					            android:text="发送任务"/>
+					        
+					        <TextView 
+					            android:id="@+id/sendtasks_num"
+					            android:layout_width="15dp"
+					            android:layout_height="15dp"
+					            android:background="@drawable/message_num_green"
+					            android:text="0"
+					            android:textColor="#ffffff"
+					            android:textSize="10sp"
+					            android:gravity="center"
+					            android:layout_alignRight="@+id/tasks_text"
+					            android:layout_alignBottom="@+id/tasks"/>
+					        
+					    </RelativeLayout>
+					    
+					    <RelativeLayout 
+					        android:layout_width="0dp"
+					        android:layout_height="wrap_content"
+					        android:layout_weight="1">
+					        
+					        <ImageView 
+					            android:id="@+id/sec_questions"
+					            android:layout_width="30dp"
+					            android:layout_height="30dp"
+					            android:src="@drawable/askme_icon"
+					            android:layout_centerHorizontal="true"/>
+					        
+					        <TextView 
+					            android:id="@+id/sec_questions_text"
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_centerHorizontal="true"
+					            android:layout_below="@+id/sec_questions"
+					            android:textColor="@color/grey"
+					            android:text="提问我的"/>
+					        
+					        <TextView 
+					            android:id="@+id/askme_num"
+					            android:layout_width="15dp"
+					            android:layout_height="15dp"
+					            android:background="@drawable/message_num_green"
+					            android:text="0"
+					            android:textColor="#ffffff"
+					            android:textSize="10sp"
+					            android:gravity="center"
+					            android:layout_alignRight="@+id/sec_questions_text"
+					            android:layout_alignBottom="@+id/sec_questions"/>
+					        
+					    </RelativeLayout>
+					    
+					    <RelativeLayout 
+					        android:layout_width="0dp"
+					        android:layout_height="wrap_content"
+					        android:layout_weight="1">
+					        
+					        <ImageView 
+					            android:id="@+id/open_questions"
+					            android:layout_width="30dp"
+					            android:layout_height="30dp"
+					            android:src="@drawable/openquestions_icon"
+					            android:layout_centerHorizontal="true"/>
+					        
+					        <TextView 
+					            android:id="@+id/open_questions_text"
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_centerHorizontal="true"
+					            android:layout_below="@+id/open_questions"
+					            android:textColor="@color/grey"
+					            android:text="回复提问"/>
+					        
+					        <TextView 
+					            android:id="@+id/answer_num"
+					            android:layout_width="15dp"
+					            android:layout_height="15dp"
+					            android:background="@drawable/message_num_green"
+					            android:text="0"
+					            android:textColor="#ffffff"
+					            android:textSize="10sp"
+					            android:gravity="center"
+					            android:layout_alignRight="@+id/open_questions_text"
+					            android:layout_alignBottom="@+id/open_questions"/>
+					        
+					    </RelativeLayout>
+					    
+					    <RelativeLayout 
+					        android:layout_width="0dp"
+					        android:layout_height="wrap_content"
+					        android:layout_weight="1">
+					        
+					        <ImageView 
+					            android:id="@+id/consultation_questions"
+					            android:layout_width="30dp"
+					            android:layout_height="30dp"
+					            android:src="@drawable/consultationquestions_icon"
+					            android:layout_centerHorizontal="true"/>
+					        
+					        <TextView 
+					            android:id="@+id/consultation_questions_text"
+					            android:layout_width="wrap_content"
+					            android:layout_height="wrap_content"
+					            android:layout_centerHorizontal="true"
+					            android:layout_below="@+id/consultation_questions"
+					            android:textColor="@color/grey"
+					            android:text="回复会诊"/>
+					        
+					        <TextView 
+					            android:id="@+id/answer_consultation_num"
+					            android:layout_width="15dp"
+					            android:layout_height="15dp"
+					            android:background="@drawable/message_num_green"
+					            android:text="0"
+					            android:textColor="#ffffff"
+					            android:textSize="10sp"
+					            android:gravity="center"
+					            android:layout_alignRight="@+id/consultation_questions_text"
+					            android:layout_alignBottom="@+id/consultation_questions"/>
+					        
+					    </RelativeLayout>
+					</LinearLayout>
+					
+					<View 
+					    android:layout_width="fill_parent"
+					    android:layout_height="1dp"
+					    android:background="#7d7d7d"
+					    android:layout_margin="10dp"/>
+					
+					<RelativeLayout
+				        android:id="@+id/myinfo"
+				        android:layout_width="match_parent"
+				        android:layout_height="50dp"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:background="@drawable/userinfo_itembackground"
+				        android:orientation="horizontal" >
+				
+				        <ImageView 
+					        android:id="@+id/myinfo_image"
+					        android:layout_width="20dp"
+					        android:layout_height="20dp"
+					        android:layout_marginLeft="5dp"
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:background="@drawable/myinfo_image"/>
+				        
+				        <TextView
+					        android:id="@+id/myinfo_text"
+					        android:layout_width="match_parent"
+					        android:layout_height="50.0dip"
+					        android:layout_toRightOf="@+id/myinfo_image"
+					        android:drawablePadding="1.0dip"
+					        android:gravity="center_vertical"
+					        android:paddingLeft="5.0dip"
+					        android:paddingRight="10.0dip"
+					        android:text="我的基本信息"
+					        android:textSize="16.0sp" />
+				    </RelativeLayout>
+				    
+				    <RelativeLayout
+				        android:id="@+id/changePwd"
+				        android:layout_width="match_parent"
+				        android:layout_height="50dp"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:background="@drawable/userinfo_itembackground"
+				        android:orientation="horizontal" >
+				
+				        <ImageView 
+					        android:id="@+id/changePwd_image"
+					        android:layout_width="20dp"
+					        android:layout_height="20dp"
+					        android:layout_marginLeft="5dp"
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:background="@drawable/changepwd_image"/>
+				        
+				        <TextView
+					        android:id="@+id/changePwd_text"
+					        android:layout_width="match_parent"
+					        android:layout_height="50.0dip"
+					        android:layout_toRightOf="@+id/changePwd_image"
+					        android:drawablePadding="1.0dip"
+					        android:gravity="center_vertical"
+					        android:paddingLeft="5.0dip"
+					        android:paddingRight="10.0dip"
+					        android:text="修改密码"
+					        android:textSize="16.0sp" />
+				    </RelativeLayout>
+				    
+					<RelativeLayout
+				        android:id="@+id/mymentor"
+				        android:layout_width="match_parent"
+				        android:layout_height="50dp"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:background="@drawable/userinfo_itembackground"
+				        android:orientation="horizontal" >
+				
+				        <ImageView 
+					        android:id="@+id/mymentor_image"
+					        android:layout_width="20dp"
+					        android:layout_height="20dp"
+					        android:layout_marginLeft="5dp"
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:background="@drawable/mystudent_image"/>
+				        
+				        <TextView
+					        android:layout_width="match_parent"
+					        android:layout_height="50.0dip"
+					        android:layout_toRightOf="@+id/mymentor_image"
+					        android:drawablePadding="1.0dip"
+					        android:gravity="center_vertical"
+					        android:paddingLeft="5.0dip"
+					        android:paddingRight="10.0dip"
+					        android:text="我的学生"
+					        android:textSize="16.0sp" />
+				    </RelativeLayout>
+				    
+				    <RelativeLayout
+				        android:id="@+id/checkupdate"
+				        android:layout_width="match_parent"
+				        android:layout_height="50dp"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:background="@drawable/userinfo_itembackground"
+				        android:orientation="horizontal" >
+				
+					    <ImageView 
+					        android:id="@+id/update_image"
+					        android:layout_width="20dp"
+					        android:layout_height="20dp"
+					        android:layout_marginLeft="5dp"
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:background="@drawable/checkupdate_image"/>
+					    
+				        <TextView
+				            android:id="@+id/update_text"
+				            android:layout_width="wrap_content"
+				            android:layout_height="50.0dip"
+				            android:layout_toRightOf="@+id/update_image"
+				            android:textSize="16sp"
+				            android:paddingLeft="5.0dip"
+				            android:gravity="center_vertical"
+				            android:focusable="false"
+				            android:text="检查更新" />
+				
+				        <ProgressBar 
+				            android:id="@+id/update_probar"
+				            android:layout_width="fill_parent"
+				            android:layout_height="wrap_content"
+				            android:layout_toRightOf="@+id/update_text"
+				            android:paddingLeft="10dp"
+				            android:paddingRight="10dp"
+				            android:layout_centerVertical="true"
+				            android:gravity="center_vertical"
+				            android:progressDrawable="@drawable/myprogress_style_blue"
+				            style="@android:style/Widget.ProgressBar.Horizontal"/>
+				    </RelativeLayout>
+				    
+				    <RelativeLayout
+				        android:id="@+id/contactadmin"
+				        android:layout_width="match_parent"
+				        android:layout_height="50dp"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:background="@drawable/userinfo_itembackground"
+				        android:orientation="horizontal" >
+				
+				        <ImageView 
+					        android:id="@+id/contactadmin_image"
+					        android:layout_width="20dp"
+					        android:layout_height="20dp"
+					        android:layout_marginLeft="5dp"
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:background="@drawable/contactadmin_icon"/>
+				        
+				        <TextView
+					        android:id="@+id/contactadmin_text"
+					        android:layout_width="match_parent"
+					        android:layout_height="50.0dip"
+					        android:layout_toRightOf="@+id/contactadmin_image"
+					        android:drawablePadding="1.0dip"
+					        android:gravity="center_vertical"
+					        android:paddingLeft="5.0dip"
+					        android:paddingRight="10.0dip"
+					        android:text="联系管理员"
+					        android:textSize="16.0sp" />
+				    </RelativeLayout>
+					<Button 
+					    android:id="@+id/userinfo_logout"
+					    android:layout_width="fill_parent"
+					    android:layout_height="40dp"
+					    android:layout_marginLeft="10dp"
+					    android:layout_marginRight="10dp"
+					    android:layout_marginTop="30dp"
+					    android:textColor="#ffffff"
+					    android:textSize="18sp"
+					    android:text="退出"
+					    android:background="@drawable/button_pink_long_selector"
+					    android:visibility="gone"
+					    />
+				</LinearLayout>
+    		</ScrollView>
+    	</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

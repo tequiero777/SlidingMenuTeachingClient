@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#019dd9" >
+
+        <ImageButton
+            android:id="@+id/myinfo_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="基本信息"
+            android:textColor="@color/white"
+            android:textSize="22sp" >
+        </TextView>
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/linear_boder"
+        android:orientation="horizontal" >
+
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentLeft="true"
+	        android:gravity="center_vertical"
+	        android:layout_marginLeft="10dp"
+	        android:textColor="@color/grey"
+	        android:text="姓名："
+	        android:textSize="16.0sp" />
+        
+        <TextView
+	        android:id="@+id/my_name_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentRight="true"
+	        android:gravity="center_vertical"
+	        android:paddingRight="10.0dip"
+	        android:textColor="@color/grey"
+	        android:text="测试人员"
+	        android:textSize="16.0sp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/linear_boder"
+        android:orientation="horizontal" >
+        
+		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentLeft="true"
+	        android:gravity="center_vertical"
+	        android:layout_marginLeft="10dp"
+	        android:textColor="@color/grey"
+	        android:text="性别："
+	        android:textSize="16.0sp" />
+        
+        <TextView
+	        android:id="@+id/my_sex_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentRight="true"
+	        android:gravity="center_vertical"
+	        android:paddingRight="10.0dip"
+	        android:textColor="@color/grey"
+	        android:text="男"
+	        android:textSize="16.0sp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/linear_boder"
+        android:orientation="horizontal" >
+
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentLeft="true"
+	        android:gravity="center_vertical"
+	        android:layout_marginLeft="10dp"
+	        android:textColor="@color/grey"
+	        android:text="手机："
+	        android:textSize="16.0sp" />
+        
+        <TextView
+	        android:id="@+id/my_phone_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentRight="true"
+	        android:gravity="center_vertical"
+	        android:paddingRight="10.0dip"
+	        android:textColor="@color/grey"
+	        android:text="18725996668"
+	        android:textSize="16.0sp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/linear_boder"
+        android:orientation="horizontal" >
+
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentLeft="true"
+	        android:gravity="center_vertical"
+	        android:layout_marginLeft="10dp"
+	        android:textColor="@color/grey"
+	        android:text="所属医院："
+	        android:textSize="16.0sp" />
+        
+        <TextView
+	        android:id="@+id/my_hospital_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50.0dip"
+	        android:layout_alignParentRight="true"
+	        android:gravity="center_vertical"
+	        android:paddingRight="10.0dip"
+	        android:textColor="@color/grey"
+	        android:text="重庆市儿童医院"
+	        android:textSize="16.0sp" />
+    </RelativeLayout>
+</LinearLayout>
