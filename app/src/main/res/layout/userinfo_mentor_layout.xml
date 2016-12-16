@@ -17,33 +17,7 @@
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical">
-					<RelativeLayout
-				        android:layout_width="match_parent"
-				        android:layout_height="wrap_content"
-				        android:background="#009dd9"
-				        android:paddingLeft="10dp" 
-				        android:paddingTop="20dp"
-				        android:paddingBottom="15dp">
-				
-				        <com.tianjian.slidingmenuteachingclient.util.CircleImageView
-				            android:id="@+id/mentor_user_image"
-				            android:layout_width="70dp"
-				            android:layout_height="70dp"
-				            android:layout_centerHorizontal="true"
-				            android:src="@drawable/img_nan" />
-				
-						<TextView
-				            android:id="@+id/mentor_userinfo_name"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            android:layout_below="@+id/mentor_user_image"
-				            android:layout_centerHorizontal="true"
-				            android:gravity="center"
-				            android:paddingTop="10dp"
-				            android:textColor="#ffffff"
-				            android:textSize="20.0sp"/>
-				    </RelativeLayout>
-				
+
 					<LinearLayout 
 					    android:layout_width="fill_parent"
 					    android:layout_height="wrap_content"

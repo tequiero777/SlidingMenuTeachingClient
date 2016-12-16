@@ -7,34 +7,29 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Base64;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
-import android.os.Message;
-import android.graphics.BitmapFactory.Options;
+
 import com.tianjian.slidingmenuteachingclient.R;
 import com.tianjian.slidingmenuteachingclient.activity.ChangePwdActivity;
 import com.tianjian.slidingmenuteachingclient.activity.ContactAdminActivity;
@@ -42,21 +37,17 @@ import com.tianjian.slidingmenuteachingclient.activity.MyInfoActivity;
 import com.tianjian.slidingmenuteachingclient.activity.MyStuOrMentorActivity;
 import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
 import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
-import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvResponse;
 import com.tianjian.slidingmenuteachingclient.bean.InQueryAppUpdateSrv.DOCINVHISInQueryAppUpdateSrvOutputItem;
 import com.tianjian.slidingmenuteachingclient.bean.InQueryAppUpdateSrv.DOCINVHISInQueryAppUpdateSrvResponse;
 import com.tianjian.slidingmenuteachingclient.bean.InQueryCountSrv.InQueryCountSrvResponse;
-import com.tianjian.slidingmenuteachingclient.util.CircleImageView;
-import com.tianjian.slidingmenuteachingclient.util.ImageUtil;
 import com.tianjian.slidingmenuteachingclient.util.StringUtil;
 import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
 import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
 import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
 import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
-import android.app.AlertDialog.Builder;
+
 import org.ksoap2.serialization.SoapObject;
-import android.view.View.OnClickListener;
-import java.io.ByteArrayOutputStream;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -66,7 +57,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+
 /**
  * TODO
  * <p>Title: UserInfoMentorFragment.java</p>
@@ -80,19 +71,13 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
  */
 public class UserInfoMentorFragment extends BaseFragment{
 	private View rootView;
-	public final static int REQUEST_PICTURE_CHOOSE = 1;
-	public final static int  REQUEST_CAMERA_IMAGE = 2;
-	public final static int REQUEST_CROP_IMAGE = 3;
-	private Bitmap mImage = null;
-	private byte[] mImageData = null;
 	private ProgressBar proBar;
 	private RelativeLayout update_layout,myinfo_layout,changepwd_layout,mymentor_layout,contactadmin_layout;
-	private TextView username,checkupdate;
+	private TextView checkupdate;
 	private TextView tasks_num,askme_num,questions_num,consultation_num;
 	private List<DOCINVHISInQueryAppUpdateSrvOutputItem> listdata;
 	private InLoginSrvOutputItem userDict;
 	protected String saveDir;
-	private CircleImageView user_image;
 	private String updateSaveName = "TeachingClient.apk";
 	private int progress;  
 	private Boolean canceled = false;
@@ -101,7 +86,6 @@ public class UserInfoMentorFragment extends BaseFragment{
 	private static final int UPDATE_DOWNLOAD_ERROR = 3; //下载出错
 	private static final int UPDATE_DOWNLOAD_COMPLETED = 4; //下载完成
 	private static final int UPDATE_DOWNLOAD_CANCELED = 5;//取消下载
-	private SharedPreferences preferences;
 	private Button logout;
 	private SystemApplcation systemApplcation;
 	private SwipeRefreshLayout refresh_layout = null;//刷新控件
@@ -119,32 +103,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 	}
 
 	private void initView() {
-		preferences = getActivity().getSharedPreferences("TEACH", getActivity().MODE_PRIVATE);
-		username = (TextView) rootView.findViewById(R.id.mentor_userinfo_name);
-		username.setText(userDict.getNAME());
-		
-		user_image = (CircleImageView) rootView.findViewById(R.id.mentor_user_image);
-		if(null!=userDict.getIMAGE()){
-			user_image.setImageBitmap(BitmapFactory.decodeByteArray(userDict.getIMAGE(), 0, userDict.getIMAGE().length));
-			Editor editor = preferences.edit();
-			editor.putString("imagebitmap", Base64.encodeToString(userDict.getIMAGE(), Base64.DEFAULT));
-			editor.commit();
-		}else{
-			Editor editor = preferences.edit();
-			editor.putString("imagebitmap", null);
-			editor.commit();
-		}
-		user_image.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//选择图片
-				Intent intent = new Intent();
-				intent.setType("image*//*");
-				intent.setAction(Intent.ACTION_PICK);
-				startActivityForResult(intent, REQUEST_PICTURE_CHOOSE);
-			}
-		});
-		
+
 		//数据统计
 		tasks_num = (TextView) rootView.findViewById(R.id.sendtasks_num);
 		askme_num = (TextView) rootView.findViewById(R.id.askme_num);
@@ -248,112 +207,6 @@ public class UserInfoMentorFragment extends BaseFragment{
 		});
 	}
 	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode != getActivity().RESULT_OK) {
-			return;
-		}
-		
-		String fileSrc = null;
-		if (requestCode == REQUEST_PICTURE_CHOOSE) {
-			if ("file".equals(data.getData().getScheme())) {
-				// 有些低版本机型返回的Uri模式为file
-				fileSrc = data.getData().getPath();
-			} else {
-				// Uri模型为content
-				String[] proj = {MediaStore.Images.Media.DATA};
-				Cursor cursor = getActivity().getContentResolver().query(data.getData(), proj,
-						null, null, null);
-				cursor.moveToFirst();
-				int idx = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-				fileSrc = cursor.getString(idx);
-				cursor.close();
-			}
-			// 跳转到图片裁剪页面
-			cropPicture(getActivity(),Uri.fromFile(new File(fileSrc)));
-		}else if (requestCode == ImageUtil.REQUEST_CROP_IMAGE) {
-			// 获取返回数据
-			Bitmap bmp = data.getParcelableExtra("data");
-			// 获取图片保存路径
-			fileSrc = ImageUtil.getImagePath(getActivity());
-			// 获取图片的宽和高
-			Options options = new Options();
-			options.inJustDecodeBounds = true;
-			mImage = BitmapFactory.decodeFile(fileSrc, options);
-			
-			// 压缩图片
-			options.inSampleSize = Math.max(1, (int) Math.ceil(Math.max(
-					(double) options.outWidth / 1024f,
-					(double) options.outHeight / 1024f)));
-			options.inJustDecodeBounds = false;
-			mImage = BitmapFactory.decodeFile(fileSrc, options);
-			
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			
-			//可根据流量及网络状况对图片进行压缩
-			mImage.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-			mImageData = baos.toByteArray();
-			Editor editor = preferences.edit();
-			editor.putString("imagebitmap", Base64.encodeToString(mImageData, Base64.DEFAULT));
-			editor.commit();
-			userDict.setIMAGE(mImageData);
-			systemApplcation.setUserDict(userDict);
-			user_image.setImageBitmap(mImage);
-			
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
-			hashMap.put("USERNAME", userDict.getUSERNAME());
-			hashMap.put("IMAGE", Base64.encodeToString(mImageData, Base64.DEFAULT));
-			hashMap.put("OPERATE_TYPE", "3");
-			querySaveImage(hashMap);
-		}
-		
-	}
-	
-	private void querySaveImage(HashMap<String, Object> hashMap) {
-		final CustomerProgress customerProgress =  new CustomerProgress(getActivity(),com.tianjian.slidingmenuteachingclient.R.style.customer_dialog);
-		NetWorkHepler.postWsData("loginWs", "process", hashMap, new INetWorkCallBack() {
-			SoapObject objectResult;
-			@Override
-			public void onResult(Object result) {
-				customerProgress.dismissDialog(customerProgress);
-				if(result == null){
-					ToastUtil.showToast(getActivity(), "更新头像失败！");
-				}else if(result instanceof SoapObject) {
-					objectResult = (SoapObject) result;
-				}else{
-					ToastUtil.showToast(getActivity(), "服务器连接失败！");
-					return;
-				}
-				InLoginSrvResponse response = new InLoginSrvResponse();
-				try {
-					for(int i=0;i<objectResult.getPropertyCount();i++){
-						response.setProperty(i, objectResult.getProperty(i));
-					}
-				} catch (Exception e) {
-					ToastUtil.showToast(getActivity(), "数据出错了，请重试！");
-				}
-				
-				if("Y".equals(response.getErrorFlag())){
-					ToastUtil.showToast(getActivity(), "更新头像成功！");
-				}else{
-					ToastUtil.showToast(getActivity(), "更新头像失败！");
-				}
-				
-			}
-			
-			@Override
-			public void onProgressUpdate(Integer[] values) {
-				
-			}
-			
-			@Override
-			public void onPreExecute() {
-				customerProgress.show();
-			}
-		});
-	}
-
-	
 	private void queryData(HashMap<String, Object> hashMap) {
 		NetWorkHepler.postWsData("countWs", "process", hashMap, new INetWorkCallBack() {
 			SoapObject objectResult;
@@ -405,54 +258,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 		});
 	}
 	
-	/***
-	 * 裁剪图片
-	 * @param activity Activity
-	 * @param uri 图片的Uri
-	 */
-	public void cropPicture(Activity activity, Uri uri) {
-		Intent innerIntent = new Intent("com.android.camera.action.CROP");
-		innerIntent.setDataAndType(uri, "image*//*");
-		innerIntent.putExtra("crop", "true");// 才能出剪辑的小方框，不然没有剪辑功能，只能选取图片
-		innerIntent.putExtra("aspectX", 1); // 放大缩小比例的X
-		innerIntent.putExtra("aspectY", 1);// 放大缩小比例的X   这里的比例为：   1:1
-		innerIntent.putExtra("outputX", 320);  //这个是限制输出图片大小
-		innerIntent.putExtra("outputY", 320); 
-		innerIntent.putExtra("return-data", true);
-		// 切图大小不足输出，无黑框
-		innerIntent.putExtra("scale", true);
-		innerIntent.putExtra("scaleUpIfNeeded", true);
-		File imageFile = new File(getImagePath(activity.getApplicationContext()));
-		innerIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-		innerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-		startActivityForResult(innerIntent, REQUEST_CROP_IMAGE);
-	}
-	
-	/**
-	 * 保存裁剪的图片的路径
-	 * @return
-	 */
-	public String getImagePath(Context context){
-		String path;
-		
-		if(!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			path = context.getFilesDir().getAbsolutePath();
-		} else {
-			path =  Environment.getExternalStorageDirectory().getAbsolutePath() + "/msc/";
-		}
-		
-		if(!path.endsWith("/")) {
-			path += "/";
-		}
-		
-		File folder = new File(path);
-		if (folder != null && !folder.exists()) {
-			folder.mkdirs();
-		}
-		path += "ifd.jpg";
-		return path;
-	}
-	
+
 	private void update(){
 		HashMap<String, Object> request = new HashMap<String, Object>();
 	     // 获取packagemanager的实例
