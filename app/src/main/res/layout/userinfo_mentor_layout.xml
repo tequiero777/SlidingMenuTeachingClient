@@ -188,7 +188,7 @@
 					        android:layout_marginLeft="5dp"
 					        android:layout_alignParentLeft="true"
 					        android:layout_centerVertical="true"
-					        android:background="@drawable/myinfo_image"/>
+					        android:background="@drawable/ic_folder_shared_blue"/>
 				        
 				        <TextView
 					        android:id="@+id/myinfo_text"
@@ -220,7 +220,7 @@
 					        android:layout_marginLeft="5dp"
 					        android:layout_alignParentLeft="true"
 					        android:layout_centerVertical="true"
-					        android:background="@drawable/changepwd_image"/>
+					        android:background="@drawable/ic_vpn_key_blue"/>
 				        
 				        <TextView
 					        android:id="@+id/changePwd_text"
@@ -252,7 +252,7 @@
 					        android:layout_marginLeft="5dp"
 					        android:layout_alignParentLeft="true"
 					        android:layout_centerVertical="true"
-					        android:background="@drawable/mystudent_image"/>
+					        android:background="@drawable/ic_people_blue"/>
 				        
 				        <TextView
 					        android:layout_width="match_parent"
@@ -283,7 +283,7 @@
 					        android:layout_marginLeft="5dp"
 					        android:layout_alignParentLeft="true"
 					        android:layout_centerVertical="true"
-					        android:background="@drawable/checkupdate_image"/>
+					        android:background="@drawable/ic_get_app_blue"/>
 					    
 				        <TextView
 				            android:id="@+id/update_text"
@@ -326,7 +326,7 @@
 					        android:layout_marginLeft="5dp"
 					        android:layout_alignParentLeft="true"
 					        android:layout_centerVertical="true"
-					        android:background="@drawable/contactadmin_icon"/>
+					        android:background="@drawable/ic_contact_mail_blue"/>
 				        
 				        <TextView
 					        android:id="@+id/contactadmin_text"

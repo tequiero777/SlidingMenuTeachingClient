@@ -7,17 +7,17 @@
     <com.tianjian.slidingmenuteachingclient.view.ProgressWheel
         android:layout_gravity="center"
         android:id="@+id/customer_progressBar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         ProgressWheel:text="1%"
         ProgressWheel:circleColor="@color/transparent"
-        ProgressWheel:textColor="#d4d6d3"
+        ProgressWheel:textColor="#6bdeff"
         ProgressWheel:textSize="16sp"
         ProgressWheel:rimColor="#6bdeff"
-        ProgressWheel:barLength="20dp" 
+        ProgressWheel:barLength="10dp"
         ProgressWheel:barColor="#d4d6d3"
-        ProgressWheel:barWidth="10dp"
-        ProgressWheel:rimWidth="10dp" 
+        ProgressWheel:barWidth="7dp"
+        ProgressWheel:rimWidth="7dp"
         ProgressWheel:spinSpeed="3dp" />
 
 </LinearLayout>

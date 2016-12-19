@@ -61,7 +61,7 @@ public class CustomerProgress extends Dialog{
 	private void  init(){
 		View  view  = LayoutInflater.from(getContext()).inflate(R.layout.custom_progress, null);
 		progressWheel = (ProgressWheel) view.findViewById(R.id.customer_progressBar);
-		this.setCancelable(false);
+		this.setCancelable(true);
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
