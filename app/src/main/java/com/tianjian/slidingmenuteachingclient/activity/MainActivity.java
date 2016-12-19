@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("退出提示");
+            builder.setTitle("提示");
             builder.setMessage("确定要退出吗？");
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
