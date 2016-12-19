@@ -7,6 +7,42 @@
  */
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.RadioGroup;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.activity.QuestionOverViewActivity;
+import com.tianjian.slidingmenuteachingclient.adapter.QuestionListAdapter;
+import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
+import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv.InQueryQuestionSrvOutputCollection;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv.InQueryQuestionSrvOutputItem;
+import com.tianjian.slidingmenuteachingclient.bean.InQueryQuestionSrv.InQueryQuestionSrvResponse;
+import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
+import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
+import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
+
+import org.ksoap2.serialization.SoapObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * TODO
  * <p>Title: AskMeQuestionsFragment.java</p>
@@ -19,7 +55,7 @@ package com.tianjian.slidingmenuteachingclient.fragment;
  * 
  */
 public class AskMeQuestionFragment extends BaseFragment{
-	/*private View rootView;
+	private View rootView;
 	private RadioGroup radioGroup;
 	private int radioButtonId = R.id.myquestion_radiogroup_replay;
 	private PullToRefreshGridView listview;
@@ -34,7 +70,7 @@ public class AskMeQuestionFragment extends BaseFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 		if(rootView == null){
 			rootView = inflater.inflate(R.layout.myquestion_layout, null);
 			systemApplcation = (SystemApplcation) getActivity().getApplication();
@@ -65,7 +101,7 @@ public class AskMeQuestionFragment extends BaseFragment{
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+                                    int position, long id) {
 				Gson gson = new Gson();
 				Intent intent = new Intent(getActivity(), QuestionOverViewActivity.class);
 				if(radioButtonId == R.id.myquestion_radiogroup_replay){
@@ -127,7 +163,7 @@ public class AskMeQuestionFragment extends BaseFragment{
      } 
 	
 	private void queryData(HashMap<String, Object> hashMap) {
-		customerProgress =  new CustomerProgress(getActivity(),com.tianjian.teachingclient.R.style.customer_dialog);
+		customerProgress =  new CustomerProgress(getActivity(),com.tianjian.slidingmenuteachingclient.R.style.customer_dialog);
 		NetWorkHepler.postWsData("queryquestionWs", "process", hashMap, new INetWorkCallBack() {
 			SoapObject objectResult;
 			@Override
@@ -207,5 +243,5 @@ public class AskMeQuestionFragment extends BaseFragment{
 			}
 			customerProgress.dismissDialog(customerProgress);
 		}
-	}*/
+	}
 }

@@ -13,7 +13,7 @@
 	    android:layout_margin="5dp"
 	    android:src="@drawable/img_nan"/> -->
 	
-	<com.tianjian.teachingclient.util.CircleImageView
+	<com.tianjian.slidingmenuteachingclient.util.CircleImageView
 	    android:id="@+id/question_listitem_imageview"
 	    android:layout_width="60dp"
 	    android:layout_height="60dp"

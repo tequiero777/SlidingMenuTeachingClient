@@ -8,6 +8,7 @@
     <com.handmark.pulltorefresh.library.PullToRefreshGridView
         android:paddingLeft="5dp"
     	android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:id="@+id/tasks_stu_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

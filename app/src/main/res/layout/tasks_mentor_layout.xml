@@ -24,7 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/tasks_mentor_send"
-        android:layout_below="@+id/tasks_mentor_title"
         android:dividerHeight="5dp"
         android:divider="@android:color/transparent"
         android:numColumns="1"
