@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#019dd9" >
+        android:background="?attr/colorPrimary" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
 	    android:textColor="#ffffff"
 	    android:textSize="18sp"
 	    android:text="确定"
-	    android:background="@drawable/button_blue_long_selector"/>
+	    android:background="@drawable/button_pink_long_selector"/>
     
     <ListView 
         android:id="@+id/choosestu_list"

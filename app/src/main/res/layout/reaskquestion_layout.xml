@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#019dd9" >
+        android:background="?attr/colorPrimary" >
 
         <ImageButton
             android:id="@+id/reaskquestion_button_back"
@@ -55,6 +55,6 @@
 	    android:textColor="#ffffff"
 	    android:textSize="18sp"
 	    android:text="保存"
-	    android:background="@drawable/button_blue_long_selector"/>
+	    android:background="@drawable/button_pink_long_selector"/>
 	
 </RelativeLayout>
