@@ -412,9 +412,28 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         } else if (id == R.id.nav_share) {
-
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this,ChangePwdActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_send) {
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("提示");
+            builder.setMessage("确定要退出吗？");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SystemApplcation sys = (SystemApplcation)MainActivity.this.getApplication();
+                    sys.exit();
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
