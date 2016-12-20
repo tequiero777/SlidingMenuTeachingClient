@@ -35,6 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tianjian.slidingmenuteachingclient.R;
+import com.tianjian.slidingmenuteachingclient.application.CrashHandler;
 import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
 import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvOutputItem;
 import com.tianjian.slidingmenuteachingclient.bean.InLoginSrv.InLoginSrvResponse;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
