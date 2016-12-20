@@ -173,8 +173,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 					public void onClick(DialogInterface dialog, int which) {
 						SystemApplcation sys = (SystemApplcation)getActivity().getApplication();
 						sys.exit();
-						sys = null;
-						
+
 						android.os.Process.killProcess(android.os.Process.myPid());
 					}
 				});
