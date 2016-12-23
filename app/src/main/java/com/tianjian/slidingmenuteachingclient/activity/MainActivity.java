@@ -2,6 +2,7 @@ package com.tianjian.slidingmenuteachingclient.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,14 +27,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tianjian.slidingmenuteachingclient.R;
 import com.tianjian.slidingmenuteachingclient.application.CrashHandler;
@@ -52,13 +60,26 @@ import com.tianjian.slidingmenuteachingclient.util.ImageUtil;
 import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
 import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
 import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+import com.tianjian.slidingmenuteachingclient.view.ColumnChartDialog;
+import com.tianjian.slidingmenuteachingclient.view.CustomerPopwindow;
 import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
 
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import android.widget.LinearLayout.LayoutParams;
+
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,6 +107,25 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences preferences;
     private int loginflag;
     private Toolbar toolbar;
+    private PopupWindow popupWindow;
+    private View popuRootView;
+    private ColumnChartView mColumnCharView;
+    /*========== 状态相关 ==========*/
+    private boolean isHasAxes = true;                       //是否显示坐标轴
+    private boolean isHasAxesNames = true;                  //是否显示坐标轴
+    private boolean isHasColumnLabels = false;              //是否显示列标签
+    private boolean isColumnsHasSelected = false;           //设置列点击后效果(消失/显示标签)
+    /*========== 标志位相关 ==========*/
+    private static final int DEFAULT_DATA = 0;              //默认数据标志位
+    private static final int SUBCOLUMNS_DATA = 1;           //多子列数据标志位
+    private static final int NEGATIVE_SUBCOLUMNS_DATA = 2;  //反向多子列标志位
+    private static final int STACKED_DATA = 3;              //堆放数据标志位
+    private static final int NEGATIVE_STACKED_DATA = 4;     //反向堆放数据标志位
+    private static boolean IS_NEGATIVE = false;             //是否需要反向标志位
+
+    /*========== 数据相关 ==========*/
+    private ColumnChartData mColumnChartData;               //柱状图数据
+    private int dataType = DEFAULT_DATA;                    //默认数据状态
 
     public MainActivity() {
     }
@@ -170,6 +210,106 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(intent, REQUEST_PICTURE_CHOOSE);
             }
         });
+
+        toolbar.inflateMenu(R.menu.main);//设置右上角的填充菜单
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuItemId = item.getItemId();
+                if (menuItemId == R.id.action_settings) {
+                    if(popuRootView == null){
+                        popuRootView = LayoutInflater.from(MainActivity.this).inflate(R.layout.columnchartdialog, null);
+                    }
+                    mColumnCharView = (ColumnChartView) popuRootView.findViewById(R.id.columnChartView);
+                    setColumnDatas();
+                    if(popupWindow == null){
+                        popupWindow = new CustomerPopwindow(Color.TRANSPARENT, popuRootView);
+                        popupWindow.setHeight(LayoutParams.MATCH_PARENT);
+                        popupWindow.setWidth(LayoutParams.MATCH_PARENT);
+                        popupWindow.setTouchable(true);
+                        popupWindow.setOutsideTouchable(true);
+                    }
+                    popupWindow.showAsDropDown(toolbar);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void setColumnDatas() {
+        switch (dataType) {
+            case DEFAULT_DATA:
+                IS_NEGATIVE = false;                                            //设置反向标志位：不反向
+                setColumnDatasByParams(1, 4, false, IS_NEGATIVE);               //设置数据：单子列 总八列 不堆叠 不反向
+                break;
+            case SUBCOLUMNS_DATA:
+                IS_NEGATIVE = false;                                            //设置反向标志位：不反向
+                setColumnDatasByParams(4, 8, false, IS_NEGATIVE);               //设置数据：四子列 总八列 不堆叠 不反向
+                break;
+            case NEGATIVE_SUBCOLUMNS_DATA:
+                IS_NEGATIVE = true;                                             //设置反向标志位：反向
+                setColumnDatasByParams(4, 8, false, IS_NEGATIVE);               //设置数据：四子列 总八列 不堆叠 反向
+                break;
+            case STACKED_DATA:
+                IS_NEGATIVE = false;                                            //设置反向标志位：不反向
+                setColumnDatasByParams(4, 8, true, IS_NEGATIVE);                //设置数据：四子列 总八列 堆叠 不反向
+                break;
+            case NEGATIVE_STACKED_DATA:
+                IS_NEGATIVE = true;                                             //设置反向标志位：反向
+                setColumnDatasByParams(4, 8, true, IS_NEGATIVE);                //设置数据：四子列 总八列 堆叠 反向
+                break;
+            default:
+                IS_NEGATIVE = false;                                            //设置反向标志位：不反向
+                setColumnDatasByParams(1, 8, false, IS_NEGATIVE);               //设置数据：单列 总八列 不堆叠 不反向
+                break;
+        }
+    }
+
+    private void setColumnDatasByParams(int numSubcolumns, int numColumns, boolean isStack, boolean isNegative) {
+        List<Column> columns = new ArrayList<>();
+        List<SubcolumnValue> values;
+        //双重for循环给每个子列设置随机的值和随机的颜色
+        for (int i = 0; i < numColumns; ++i) {
+            values = new ArrayList<>();
+            for (int j = 0; j < numSubcolumns; ++j) {
+                //确定是否反向
+                int negativeSign = getNegativeSign(isNegative);
+                //根据反向值 设置列的值
+                values.add(new SubcolumnValue((float) Math.random() * 50f * negativeSign + 5 * negativeSign, ChartUtils.pickColor()));
+            }
+
+            /*===== 柱状图相关设置 =====*/
+            Column column = new Column(values);
+            column.setHasLabels(isHasColumnLabels);                    //没有标签
+            column.setHasLabelsOnlyForSelected(isColumnsHasSelected);  //点击只放大
+            columns.add(column);
+        }
+        mColumnChartData = new ColumnChartData(columns);               //设置数据
+        mColumnChartData.setStacked(isStack);                          //设置是否堆叠
+
+        /*===== 坐标轴相关设置 类似于Line Charts =====*/
+        if (isHasAxes) {
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            if (isHasAxesNames) {
+                axisX.setName("Axis X");
+                axisY.setName("Axis Y");
+            }
+            mColumnChartData.setAxisXBottom(axisX);
+            mColumnChartData.setAxisYLeft(axisY);
+        } else {
+            mColumnChartData.setAxisXBottom(null);
+            mColumnChartData.setAxisYLeft(null);
+        }
+        mColumnCharView.setColumnChartData(mColumnChartData);
+    }
+
+    private int getNegativeSign(boolean isNegative) {
+        if (isNegative) {
+            int[] sign = new int[]{-1, 1};                      //-1：反向 1：正向
+            return sign[Math.round((float) Math.random())];     //随机确定子列正反
+        }
+        return 1;                                               //默认全为正向
     }
 
     @Override
