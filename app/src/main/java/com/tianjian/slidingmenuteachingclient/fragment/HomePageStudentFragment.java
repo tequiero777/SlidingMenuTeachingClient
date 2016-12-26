@@ -208,7 +208,11 @@ public class HomePageStudentFragment extends BaseFragment{
 						list = collection.getInQueryQuestionSrvOutputItem();
 						question_listitem = list.get(0);
 						question_name.setText(list.get(0).getNAME());
-						question_content.setText(list.get(0).getCONTENT().split("！@#-")[0]+"，"+list.get(0).getCONTENT().split("！@#-")[1]+"，"+list.get(0).getCONTENT().split("！@#-")[2]+"岁。"+list.get(0).getCONTENT().split("！@#-")[3]);
+						if(list.get(0).getCONTENT().split("！@#-").length>1){
+							question_content.setText(list.get(0).getCONTENT().split("！@#-")[0]+"，"+list.get(0).getCONTENT().split("！@#-")[1]+"，"+list.get(0).getCONTENT().split("！@#-")[2]+"岁。"+list.get(0).getCONTENT().split("！@#-")[3]);
+						}else{
+							question_content.setText(list.get(0).getCONTENT());
+						}
 						question_time.setText(list.get(0).getTIME().replace(".0", ""));
 						if(list.get(0).getCLASSTYPE().equals("1")){
 							question_flag.setText("常规");

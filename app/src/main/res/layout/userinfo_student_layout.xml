@@ -197,8 +197,9 @@
 					        android:gravity="center_vertical"
 					        android:paddingLeft="5.0dip"
 					        android:paddingRight="10.0dip"
-					        android:text="我的基本信息"
-					        android:textSize="16.0sp" />
+					        android:text="基本信息"
+					        android:textSize="16.0sp"
+							android:transitionName="basicinfo"/>
 				        
 				        <!-- <ImageView 
 				            android:layout_alignParentRight="true"
@@ -238,7 +239,8 @@
 					        android:paddingLeft="5.0dip"
 					        android:paddingRight="10.0dip"
 					        android:text="修改密码"
-					        android:textSize="16.0sp" />
+					        android:textSize="16.0sp"
+							android:transitionName="changepwd"/>
 				    </RelativeLayout>
 				    
 					<RelativeLayout
@@ -261,6 +263,7 @@
 					        android:background="@drawable/ic_school_blue"/>
 				        
 				        <TextView
+							android:id="@+id/myMentor_text"
 					        android:layout_width="match_parent"
 					        android:layout_height="50.0dip"
 					        android:layout_toRightOf="@+id/mymentor_image"
@@ -269,7 +272,8 @@
 					        android:paddingLeft="5.0dip"
 					        android:paddingRight="10.0dip"
 					        android:text="我的导师"
-					        android:textSize="16.0sp" />
+					        android:textSize="16.0sp"
+							android:transitionName="mymentor"/>
 				    </RelativeLayout>
 				    
 				    <RelativeLayout
@@ -344,7 +348,8 @@
 					        android:paddingLeft="5.0dip"
 					        android:paddingRight="10.0dip"
 					        android:text="联系管理员"
-					        android:textSize="16.0sp" />
+					        android:textSize="16.0sp"
+							android:transitionName="contact"/>
 				    </RelativeLayout>
 				    
 					<Button 

@@ -1,5 +1,7 @@
 package com.tianjian.slidingmenuteachingclient.fragment;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -82,6 +85,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 	private Button logout;
 	private SystemApplcation systemApplcation;
 	private SwipeRefreshLayout refresh_layout = null;//刷新控件
+	private TextView basicinfo,changepwd,mymentor,checkversion,contactAdmin;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,14 +112,22 @@ public class UserInfoStudentFragment extends BaseFragment {
 		hashMap.put("USERNAME", userDict.getUSERNAME());
 		hashMap.put("OPERATE_TYPE", "1");
 		queryData(hashMap);
+
+		basicinfo = (TextView) rootView.findViewById(R.id.myinfo_text);
+		changepwd = (TextView) rootView.findViewById(R.id.changePwd_text);
+		mymentor = (TextView) rootView.findViewById(R.id.myMentor_text);
+		checkversion = (TextView) rootView.findViewById(R.id.update_text);
+		contactAdmin = (TextView) rootView.findViewById(R.id.contactadmin_text);
 		
 		//我的基本信息
 		myinfo_layout = (RelativeLayout) rootView.findViewById(R.id.myinfo);
 		myinfo_layout.setOnClickListener(new OnClickListener() {
 			@Override
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), MyInfoActivity.class);
-				startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), basicinfo, "basicinfo").toBundle());
+//				startActivity(intent);
 			}
 		});
 		
@@ -123,9 +135,11 @@ public class UserInfoStudentFragment extends BaseFragment {
 		changepwd_layout = (RelativeLayout) rootView.findViewById(R.id.changePwd);
 		changepwd_layout.setOnClickListener(new OnClickListener() {
 			@Override
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ChangePwdActivity.class);
-				startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), changepwd, "changepwd").toBundle());
+//				startActivity(intent);
 			}
 		});
 		
@@ -133,10 +147,12 @@ public class UserInfoStudentFragment extends BaseFragment {
 		mymentor_layout = (RelativeLayout) rootView.findViewById(R.id.mymentor);
 		mymentor_layout.setOnClickListener(new OnClickListener() {
 			@Override
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), MyStuOrMentorActivity.class);
 				intent.putExtra("usertype", 1);
-				startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), mymentor, "mymentor").toBundle());
+//				startActivity(intent);
 			}
 		});
 		
@@ -155,9 +171,11 @@ public class UserInfoStudentFragment extends BaseFragment {
 		contactadmin_layout = (RelativeLayout) rootView.findViewById(R.id.contactadmin);
 		contactadmin_layout.setOnClickListener(new OnClickListener() {
 			@Override
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ContactAdminActivity.class);
-				startActivity(intent);
+				startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), contactAdmin, "contact").toBundle());
+//				startActivity(intent);
 			}
 		});
 		

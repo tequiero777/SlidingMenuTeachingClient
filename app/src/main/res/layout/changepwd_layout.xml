@@ -25,7 +25,8 @@
             android:layout_centerInParent="true"
             android:text="修改密码"
             android:textColor="@color/white"
-            android:textSize="22sp" >
+            android:textSize="22sp"
+			android:transitionName="changepwd">
         </TextView>
     </RelativeLayout>
     

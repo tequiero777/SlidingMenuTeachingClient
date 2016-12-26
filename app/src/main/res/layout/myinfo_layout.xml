@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f4f4f4"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+	>
     
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +26,9 @@
             android:layout_centerInParent="true"
             android:text="基本信息"
             android:textColor="@color/white"
-            android:textSize="22sp" >
+            android:textSize="22sp"
+			android:transitionName="basicinfo"
+			>
         </TextView>
     </RelativeLayout>
     
