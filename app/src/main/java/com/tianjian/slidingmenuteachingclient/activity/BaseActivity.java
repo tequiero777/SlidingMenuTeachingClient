@@ -3,13 +3,14 @@ package com.tianjian.slidingmenuteachingclient.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
 
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 	protected SystemApplcation systemApplcation;
 	protected ImageButton backImg;
 	protected TextView title;//标题

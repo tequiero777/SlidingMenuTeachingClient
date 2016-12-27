@@ -81,7 +81,7 @@ import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public final static int REQUEST_PICTURE_CHOOSE = 1;
     public final static int  REQUEST_CAMERA_IMAGE = 2;
