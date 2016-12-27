@@ -5,7 +5,6 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,7 +68,7 @@ import java.util.List;
 public class UserInfoStudentFragment extends BaseFragment {
 	private View rootView;
 	private ProgressBar proBar;
-	private RelativeLayout update_layout,myinfo_layout,changepwd_layout,mymentor_layout,contactadmin_layout;
+	private CardView myinfo_layout,update_layout,changepwd_layout,mymentor_layout,contactadmin_layout;
 	private TextView checkupdate;
 	private TextView tasks_num,secquestions_num,openquestions_num,consultation_num;
 	private List<DOCINVHISInQueryAppUpdateSrvOutputItem> listdata;
@@ -82,7 +82,6 @@ public class UserInfoStudentFragment extends BaseFragment {
 	private static final int UPDATE_DOWNLOAD_ERROR = 3; //下载出错
 	private static final int UPDATE_DOWNLOAD_COMPLETED = 4; //下载完成
 	private static final int UPDATE_DOWNLOAD_CANCELED = 5;//取消下载
-	private Button logout;
 	private SystemApplcation systemApplcation;
 	private SwipeRefreshLayout refresh_layout = null;//刷新控件
 	private TextView basicinfo,changepwd,mymentor,checkversion,contactAdmin;
@@ -120,7 +119,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 		contactAdmin = (TextView) rootView.findViewById(R.id.contactadmin_text);
 		
 		//我的基本信息
-		myinfo_layout = (RelativeLayout) rootView.findViewById(R.id.myinfo);
+		myinfo_layout = (CardView) rootView.findViewById(R.id.myinfo);
 		myinfo_layout.setOnClickListener(new OnClickListener() {
 			@Override
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -132,7 +131,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 		});
 		
 		//修改密码
-		changepwd_layout = (RelativeLayout) rootView.findViewById(R.id.changePwd);
+		changepwd_layout = (CardView) rootView.findViewById(R.id.changePwd);
 		changepwd_layout.setOnClickListener(new OnClickListener() {
 			@Override
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -144,7 +143,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 		});
 		
 		//我的导师
-		mymentor_layout = (RelativeLayout) rootView.findViewById(R.id.mymentor);
+		mymentor_layout = (CardView) rootView.findViewById(R.id.mymentor);
 		mymentor_layout.setOnClickListener(new OnClickListener() {
 			@Override
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -160,7 +159,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 		proBar = (ProgressBar) rootView.findViewById(R.id.update_probar);
 		proBar.setVisibility(View.GONE);
 		checkupdate = (TextView) rootView.findViewById(R.id.update_text);
-		update_layout = (RelativeLayout) rootView.findViewById(R.id.checkupdate);
+		update_layout = (CardView) rootView.findViewById(R.id.checkupdate);
 		update_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -168,7 +167,7 @@ public class UserInfoStudentFragment extends BaseFragment {
 			}
 		});
 		
-		contactadmin_layout = (RelativeLayout) rootView.findViewById(R.id.contactadmin);
+		contactadmin_layout = (CardView) rootView.findViewById(R.id.contactadmin);
 		contactadmin_layout.setOnClickListener(new OnClickListener() {
 			@Override
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -176,34 +175,6 @@ public class UserInfoStudentFragment extends BaseFragment {
 				Intent intent = new Intent(getActivity(), ContactAdminActivity.class);
 				startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), contactAdmin, "contact").toBundle());
 //				startActivity(intent);
-			}
-		});
-		
-		logout = (Button) rootView.findViewById(R.id.userinfo_logout);
-		logout.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Builder builder = new Builder(getActivity());
-				builder.setTitle("退出提示");
-				builder.setMessage("确定要退出吗？");
-				builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						SystemApplcation sys = (SystemApplcation)getActivity().getApplication();
-						sys.exit();
-
-						android.os.Process.killProcess(android.os.Process.myPid());
-					}
-				});
-				builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-				builder.show();
-				
 			}
 		});
 		

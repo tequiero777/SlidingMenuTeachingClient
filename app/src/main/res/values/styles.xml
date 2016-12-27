@@ -128,4 +128,5 @@
         <item name="android:textColor">@color/goods_onoff_color_selector</item>
         <item name="android:background">@drawable/goods_on_off_button_selector</item>
     </style>
+
 </resources>

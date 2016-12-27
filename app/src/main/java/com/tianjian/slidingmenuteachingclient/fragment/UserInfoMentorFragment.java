@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,7 +73,7 @@ import java.util.List;
 public class UserInfoMentorFragment extends BaseFragment{
 	private View rootView;
 	private ProgressBar proBar;
-	private RelativeLayout update_layout,myinfo_layout,changepwd_layout,mymentor_layout,contactadmin_layout;
+	private CardView update_layout,myinfo_layout,changepwd_layout,mymentor_layout,contactadmin_layout;
 	private TextView checkupdate;
 	private TextView tasks_num,askme_num,questions_num,consultation_num;
 	private List<DOCINVHISInQueryAppUpdateSrvOutputItem> listdata;
@@ -117,7 +118,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 		queryData(hashMap);
 		
 		//我的基本信息
-		myinfo_layout = (RelativeLayout) rootView.findViewById(R.id.myinfo);
+		myinfo_layout = (CardView) rootView.findViewById(R.id.myinfo);
 		myinfo_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -127,7 +128,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 		});
 		
 		//修改密码
-		changepwd_layout = (RelativeLayout) rootView.findViewById(R.id.changePwd);
+		changepwd_layout = (CardView) rootView.findViewById(R.id.changePwd);
 		changepwd_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -137,7 +138,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 		});
 		
 		//我的导师
-		mymentor_layout = (RelativeLayout) rootView.findViewById(R.id.mymentor);
+		mymentor_layout = (CardView) rootView.findViewById(R.id.mymentor);
 		mymentor_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -151,7 +152,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 		proBar = (ProgressBar) rootView.findViewById(R.id.update_probar);
 		proBar.setVisibility(View.GONE);
 		checkupdate = (TextView) rootView.findViewById(R.id.update_text);
-		update_layout = (RelativeLayout) rootView.findViewById(R.id.checkupdate);
+		update_layout = (CardView) rootView.findViewById(R.id.checkupdate);
 		update_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -159,7 +160,7 @@ public class UserInfoMentorFragment extends BaseFragment{
 			}
 		});
 		
-		contactadmin_layout = (RelativeLayout) rootView.findViewById(R.id.contactadmin);
+		contactadmin_layout = (CardView) rootView.findViewById(R.id.contactadmin);
 		contactadmin_layout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
