@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#e6f4f4f4">
+
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/pieChartView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimary"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="接收任务"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/plum"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="私密提问"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/green"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="公开提问"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/orange"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="会诊提问"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</LinearLayout>

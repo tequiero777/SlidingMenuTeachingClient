@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ import android.widget.Toast;
 import com.tianjian.slidingmenuteachingclient.R;
 import com.tianjian.slidingmenuteachingclient.activity.ChangePwdActivity;
 import com.tianjian.slidingmenuteachingclient.activity.ContactAdminActivity;
+import com.tianjian.slidingmenuteachingclient.activity.MainActivity;
 import com.tianjian.slidingmenuteachingclient.activity.MyInfoActivity;
 import com.tianjian.slidingmenuteachingclient.activity.MyStuOrMentorActivity;
 import com.tianjian.slidingmenuteachingclient.application.SystemApplcation;
@@ -40,6 +45,7 @@ import com.tianjian.slidingmenuteachingclient.util.StringUtil;
 import com.tianjian.slidingmenuteachingclient.util.ToastUtil;
 import com.tianjian.slidingmenuteachingclient.util.network.callback.INetWorkCallBack;
 import com.tianjian.slidingmenuteachingclient.util.network.helper.NetWorkHepler;
+import com.tianjian.slidingmenuteachingclient.view.CustomerPopwindow;
 import com.tianjian.slidingmenuteachingclient.view.CustomerProgress;
 
 import org.ksoap2.serialization.SoapObject;
@@ -51,8 +57,18 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.ColumnChartView;
+import lecho.lib.hellocharts.view.PieChartView;
+
+import static android.R.attr.onClick;
+import static com.tianjian.slidingmenuteachingclient.R.id.toolbar;
 
 /**
  * TODO
@@ -85,6 +101,23 @@ public class UserInfoStudentFragment extends BaseFragment {
 	private SystemApplcation systemApplcation;
 	private SwipeRefreshLayout refresh_layout = null;//刷新控件
 	private TextView basicinfo,changepwd,mymentor,checkversion,contactAdmin;
+	private LinearLayout countLayout;
+	private PopupWindow popupWindow;
+	private View popuRootView;
+	/*========= 控件相关 =========*/
+	private PieChartView mPieChartView;                 //饼状图控件
+
+	/*========= 状态相关 =========*/
+	private boolean isExploded = false;                 //每块之间是否分离
+	private boolean isHasLabelsInside = true;          //标签在内部
+	private boolean isHasLabelsOutside = false;         //标签在外部
+	private boolean isHasCenterCircle = false;          //空心圆环
+	private boolean isPiesHasSelected = false;          //块选中标签样式
+	private boolean isHasCenterSingleText = false;      //圆环中心单行文字
+	private boolean isHasCenterDoubleText = false;      //圆环中心双行文字
+
+	/*========= 数据相关 =========*/
+	private PieChartData mPieChartData;                 //饼状图数据
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,7 +159,6 @@ public class UserInfoStudentFragment extends BaseFragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), MyInfoActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), basicinfo, "basicinfo").toBundle());
-//				startActivity(intent);
 			}
 		});
 		
@@ -138,7 +170,6 @@ public class UserInfoStudentFragment extends BaseFragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ChangePwdActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), changepwd, "changepwd").toBundle());
-//				startActivity(intent);
 			}
 		});
 		
@@ -151,7 +182,6 @@ public class UserInfoStudentFragment extends BaseFragment {
 				Intent intent = new Intent(getActivity(), MyStuOrMentorActivity.class);
 				intent.putExtra("usertype", 1);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), mymentor, "mymentor").toBundle());
-//				startActivity(intent);
 			}
 		});
 		
@@ -174,7 +204,6 @@ public class UserInfoStudentFragment extends BaseFragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ContactAdminActivity.class);
 				startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), contactAdmin, "contact").toBundle());
-//				startActivity(intent);
 			}
 		});
 		
@@ -186,9 +215,74 @@ public class UserInfoStudentFragment extends BaseFragment {
 				initView();
 			}
 		});
+
+		countLayout = (LinearLayout) rootView.findViewById(R.id.count_layout);
+		countLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(popuRootView == null){
+					popuRootView = LayoutInflater.from(getActivity()).inflate(R.layout.piechartdialog, null);
+				}
+				mPieChartView = (PieChartView) popuRootView.findViewById(R.id.pieChartView);
+				setPieDatas();
+				if(popupWindow == null){
+					popupWindow = new CustomerPopwindow(Color.TRANSPARENT, popuRootView);
+					popupWindow.setAnimationStyle(R.style.popwin_anim_style);
+					popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+					popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+					popupWindow.setTouchable(true);
+					popupWindow.setOutsideTouchable(true);
+				}
+				popupWindow.showAsDropDown(countLayout);
+			}
+		});
 	}
-	
-	
+
+	private void setPieDatas() {
+		int numValues = 4;                //把一张饼切成4块
+
+        /*===== 设置每块的颜色和数据 =====*/
+		List<SliceValue> values = new ArrayList<>();
+		SliceValue sliceValue1 = new SliceValue(Float.parseFloat(tasks_num.getText().toString()), Color.parseColor("#3F51B5")).setLabel("接收任务 "+tasks_num.getText().toString());
+		SliceValue sliceValue2 = new SliceValue(Float.parseFloat(secquestions_num.getText().toString()), Color.parseColor("#DDA0DD")).setLabel("私密提问 "+secquestions_num.getText().toString());
+		SliceValue sliceValue3 = new SliceValue(Float.parseFloat(openquestions_num.getText().toString()), Color.parseColor("#008000")).setLabel("公开提问 "+openquestions_num.getText().toString());
+		SliceValue sliceValue4 = new SliceValue(Float.parseFloat(consultation_num.getText().toString()), Color.parseColor("#FFA500")).setLabel("会诊提问 "+consultation_num.getText().toString());
+		values.add(sliceValue1);
+		values.add(sliceValue2);
+		values.add(sliceValue3);
+		values.add(sliceValue4);
+
+        /*===== 设置相关属性 类似Line Chart =====*/
+		mPieChartData = new PieChartData(values);
+		mPieChartData.setHasLabels(isHasLabelsInside);
+		mPieChartData.setHasLabelsOnlyForSelected(isPiesHasSelected);
+		mPieChartData.setHasLabelsOutside(isHasLabelsOutside);
+		mPieChartData.setHasCenterCircle(isHasCenterCircle);
+
+		//是否分离
+		if (isExploded) {
+			mPieChartData.setSlicesSpacing(18);                 //分离间距为18
+		}
+
+		//是否显示单行文本
+		if (isHasCenterSingleText) {
+			mPieChartData.setCenterText1("Hello");             //文本内容
+		}
+
+		//是否显示双行文本
+		if (isHasCenterDoubleText) {
+			mPieChartData.setCenterText2("World");             //文本内容
+
+            /*===== 设置内置字体 不建议设置 除非有特殊需求 =====*/
+//			Typeface tf = Typeface.createFromAsset(this.getAssets(), "Roboto-Italic.ttf");
+//			mPieChartData.setCenterText2Typeface(tf);
+//			mPieChartData.setCenterText2FontSize(ChartUtils.px2sp(getResources().getDisplayMetrics().scaledDensity,
+//					(int) getResources().getDimension(R.dimen.pie_chart_double_text_size)));
+		}
+		mPieChartView.setPieChartData(mPieChartData);         //设置控件
+	}
+
+
 	private void queryData(HashMap<String, Object> hashMap) {
 		NetWorkHepler.postWsData("countWs", "process", hashMap, new INetWorkCallBack() {
 			SoapObject objectResult;

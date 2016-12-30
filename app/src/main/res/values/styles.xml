@@ -129,4 +129,8 @@
         <item name="android:background">@drawable/goods_on_off_button_selector</item>
     </style>
 
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow</item>
+        <item name="android:windowExitAnimation">@anim/pophide</item>
+    </style>
 </resources>
